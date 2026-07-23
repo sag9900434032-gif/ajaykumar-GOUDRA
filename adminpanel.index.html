@@ -1800,6 +1800,65 @@
         }
         refreshStudents();
 
+        async function loadAdminData() {
+            try {
+                const [dashboardResponse, admissionsResponse, studentsResponse] = await Promise.all([
+                    fetch(`${API_BASE}/admin/dashboard`),
+                    fetch(`${API_BASE}/admissions`),
+                    fetch(`${API_BASE}/students`)
+                ]);
+
+                const dashboardPayload = await dashboardResponse.json().catch(() => ({}));
+                const admissionsPayload = await admissionsResponse.json().catch(() => ({}));
+                const studentsPayload = await studentsResponse.json().catch(() => ({}));
+
+                const dashboard = dashboardPayload?.data || {};
+                const admissions = Array.isArray(admissionsPayload?.data) ? admissionsPayload.data : [];
+                const students = Array.isArray(studentsPayload?.data) ? studentsPayload.data : [];
+
+                if (admissions.length > 0) {
+                    admissionData = admissions;
+                }
+
+                if (students.length > 0) {
+                    studentData = students;
+                } else {
+                    studentData = admissionData
+                        .filter(a => a.status === 'approved')
+                        .map((a, idx) => ({ id: idx + 1, name: a.name, stream: a.stream, grade: a.grade, email: a.email, status: 'active', admissionId: a.id }));
+                }
+
+                nextAdmissionId = admissionData.length + 1;
+                nextStudentId = studentData.length + 1;
+
+                const total = Number(dashboard.totalApplications || admissionData.length || 0);
+                const pending = Number(dashboard.pendingApplications || admissionData.filter(a => a.status === 'pending').length || 0);
+                const approved = Number(dashboard.approvedApplications || admissionData.filter(a => a.status === 'approved').length || 0);
+                const rejected = Number(dashboard.rejectedApplications || admissionData.filter(a => a.status === 'rejected').length || 0);
+
+                document.getElementById('totalApps').textContent = total.toLocaleString();
+                document.getElementById('pendingApps').textContent = pending.toLocaleString();
+                document.getElementById('approvedApps').textContent = approved.toLocaleString();
+                document.getElementById('rejectedApps').textContent = rejected.toLocaleString();
+                document.getElementById('enrolledStudents').textContent = studentData.length.toLocaleString();
+                document.getElementById('admissionBadge').textContent = pending;
+                document.getElementById('studentBadge').textContent = studentData.length;
+
+                const filtered = getFilteredAdmissions();
+                renderAdmissionsTable(filtered);
+                updateAdmissionPaginationButtons(filtered.length);
+                renderRecentAdmissions();
+                renderStudentsTable();
+                updateDashboardStats();
+                updateAdmissionStats();
+                updateStudentStats();
+                showToast('✅ Live admissions synced', 'success');
+            } catch (error) {
+                console.error('Failed to load live admin data:', error);
+                showToast('⚠️ Using saved data. Backend unavailable.', 'warning');
+            }
+        }
+
         function numberToWords(num) {
             if (num === 0) return 'Zero';
             const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
@@ -2487,6 +2546,11 @@
             document.getElementById('stuArts').textContent = arts;
         }
 
+        function updateAdmissionBadge(count) {
+            const element = document.getElementById('admissionBadge');
+            if (element) element.textContent = count;
+        }
+
         function updateStudentBadge() { document.getElementById('studentBadge').textContent = studentData.length; }
 
         // ============================================================
@@ -2598,6 +2662,7 @@
 
             document.getElementById('regDob').max = new Date().toISOString().split('T')[0];
             document.getElementById('todayReg').textContent = Math.floor(Math.random() * 5) + 1;
+            loadAdminData();
             console.log('📋 AKRDevi Portal loaded with Professional Payslip!');
             console.log(`📌 ${admissionData.length} admissions, ${studentData.length} students, ${facultyData.length} faculty, ${leaveData.length} leaves.`);
         });
