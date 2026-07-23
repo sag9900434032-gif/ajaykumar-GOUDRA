@@ -1,0 +1,106 @@
+...
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+...
+    <script>
+        const SUPABASE_URL = 'https://YOUR_PROJECT_REF.supabase.co';
+        const SUPABASE_KEY = 'YOUR_ANON_KEY';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function uploadDocumentFiles(files) {
+            const uploaded = {};
+            for (const [key, file] of Object.entries(files)) {
+                if (!file) {
+                    uploaded[key] = null;
+                    continue;
+                }
+                const filePath = `admission-docs/${Date.now()}_${file.name}`;
+                const { error: uploadError } = await supabase.storage
+                    .from('admission-docs')
+                    .upload(filePath, file, { cacheControl: '3600', upsert: false });
+                if (uploadError) throw uploadError;
+
+                const { data: urlData } = supabase.storage
+                    .from('admission-docs')
+                    .getPublicUrl(filePath);
+                uploaded[key] = urlData.publicUrl;
+            }
+            return uploaded;
+        }
+
+        async function submitApplication(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            if (!document.getElementById('declaration').checked) {
+                showToast('Please accept the declaration.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+                return;
+            }
+
+            const fieldMap = {
+                fullName: 'fullName',
+                fatherName: 'fatherName',
+                motherName: 'motherName',
+                dob: 'dob',
+                gender: 'gender',
+                nationality: 'nationality',
+                category: 'category',
+                religion: 'religion',
+                aadhar: 'aadhar',
+                phone: 'phone',
+                email: 'email',
+                address: 'address',
+                schoolName: 'schoolName',
+                board: 'board',
+                sslcScore: 'sslcScore',
+                passingYear: 'passingYear',
+                sslcSubjects: 'sslcSubjects',
+                course: 'course',
+                secondLang: 'secondLang',
+                extracurricular: 'extracurricular',
+                fatherOccupation: 'fatherOccupation',
+                motherOccupation: 'motherOccupation',
+                income: 'income',
+                medical: 'medical',
+                emergencyPhone: 'emergencyPhone'
+            };
+
+            const data = {};
+            for (let [key, id] of Object.entries(fieldMap)) {
+                const el = document.getElementById(id);
+                data[key] = el ? el.value.trim() : '';
+            }
+
+            try {
+                const fileInputs = {
+                    marksCard: document.getElementById('marksCard').files[0],
+                    tcFile: document.getElementById('tcFile').files[0],
+                    photo: document.getElementById('photo').files[0],
+                    certificate: document.getElementById('certificate').files[0]
+                };
+
+                const fileUrls = await uploadDocumentFiles(fileInputs);
+                data.documents = fileUrls;
+
+                const { error } = await supabase.from('admissions').insert([data]);
+                if (error) {
+                    showToast('❌ ' + error.message, 'error');
+                } else {
+                    showToast('✅ Application submitted successfully.', 'success');
+                    document.getElementById('admissionForm').reset();
+                    document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
+                    currentStep = 1;
+                    updateProgress(1);
+                }
+            } catch (error) {
+                showToast('❌ ' + (error.message || 'Network error. Please check your connection.'), 'error');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+        }
+...
+    </script>

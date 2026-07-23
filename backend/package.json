@@ -1,0 +1,19 @@
+{
+  "name": "website-backend",
+  "version": "1.0.0",
+  "description": "Backend for the website with admission and contact APIs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.8",
+    "cors": "^2.8.0",
+    "dotenv": "^16.4.1",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.2"
+  }
+}
