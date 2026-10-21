@@ -953,11 +953,16 @@ app.get(['/', '/admin', '/admin/index.html'], (req, res) => {
   res.sendFile(path.join(__dirname, 'admin-panel.html'));
 });
 
-// ─── Start Server ────────────────────────────────────────────
+// ─── Start Server / Export for Serverless ────────────────────
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 AKRDevi Admin Backend running on http://localhost:${PORT}`);
-  console.log(`📡 Health: http://localhost:${PORT}/api/health`);
-  console.log(`📡 Dashboard: http://localhost:${PORT}/api/admin/dashboard`);
-  console.log(`🎛️  Admin Panel: http://localhost:${PORT}/admin-panel.html\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 AKRDevi Admin Backend running on http://localhost:${PORT}`);
+    console.log(`📡 Health: http://localhost:${PORT}/api/health`);
+    console.log(`📡 Dashboard: http://localhost:${PORT}/api/admin/dashboard`);
+    console.log(`🎛️  Admin Panel: http://localhost:${PORT}/admin-panel.html\n`);
+  });
+}
+
+module.exports = app;
+

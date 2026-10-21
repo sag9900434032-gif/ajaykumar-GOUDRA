@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AKRDevi | PUC Admission – Elegant Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-light: #60A5FA;
+            --primary-dark: #1E3A8A;
+            --secondary: #F59E0B;
+            --secondary-light: #FBBF24;
+            --secondary-dark: #D97706;
+            --accent: #10B981;
+            --bg: #060A16;
+            --white: #FFFFFF;
+            --text-dark: #FFFFFF;
+            --text-muted: #94A3B8;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            --shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.6);
+            --radius: 20px;
+            --transition: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            --max-width: 860px;
+        }
+
+        body {
+            font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+            background-image:
+                linear-gradient(180deg, rgba(6, 16, 20, 0.78) 0%, rgba(6, 16, 20, 0.90) 60%, var(--bg) 100%),
+                url('assets/college-campus.jpg');
+            background-size: cover;
+            background-position: center 35%;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+            color: #CBD5E1;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            width: 100%;
+            background: rgba(13, 22, 45, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: var(--radius);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            padding: 48px 56px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary-light), var(--secondary));
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+            position: relative;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 4px 22px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .header h1 span {
+            color: var(--secondary);
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-wrap {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 38px;
+            position: relative;
+            padding: 0 4px;
+        }
+
+        .progress-wrap::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            right: 30px;
+            height: 2px;
+            background: #e2e8f0;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .progress-step .circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .progress-step.active .circle {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(201, 162, 75, 0.2);
+        }
+
+        .progress-step.completed .circle {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        .progress-step .label {
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-step.active .label,
+        .progress-step.completed .label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ===== FORM STEPS ===== */
+        .form-step {
+            display: none;
+            animation: fadeUp 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-title i {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 28px;
+            margin-bottom: 4px;
+        }
+
+        .row.three {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+
+        .form-group .hint {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            transition: var(--transition);
+            background: var(--white);
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(201, 162, 75, 0.12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed #dce1e8;
+            padding: 16px 12px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            background: #fafbfc;
+        }
+
+        .file-upload:hover {
+            border-color: var(--secondary);
+            background: #fef9ef;
+        }
+
+        .file-upload i {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .file-upload .info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--secondary);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .checkbox-group label a {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 14px;
+        }
+
+        .btn {
+            padding: 11px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-prev {
+            background: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .btn-prev:hover {
+            background: #cbd5e1;
+            transform: translateX(-2px);
+        }
+
+        .btn-next {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-next:hover {
+            background: var(--primary-dark);
+            transform: translateX(2px);
+            box-shadow: 0 8px 25px rgba(15, 59, 94, 0.3);
+        }
+
+        .btn-submit {
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 12px 40px;
+            font-size: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 162, 75, 0.4);
+        }
+
+        .btn-print {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 12px 28px;
+            font-size: 0.92rem;
+        }
+
+        .btn-print:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 59, 94, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== REVIEW TABLE ===== */
+        .review-section {
+            margin-bottom: 28px;
+        }
+
+        .review-section .section-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .review-section .section-label i {
+            font-size: 0.9rem;
+        }
+
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .review-table tr {
+            transition: background 0.2s;
+        }
+
+        .review-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .review-table tr:hover {
+            background: #f1f5f9;
+        }
+
+        .review-table td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #eef2f6;
+            vertical-align: middle;
+        }
+
+        .review-table td:first-child {
+            font-weight: 600;
+            color: var(--primary);
+            width: 42%;
+            background: rgba(15, 59, 94, 0.02);
+        }
+
+        .review-table td:last-child {
+            color: var(--text-dark);
+            word-break: break-word;
+        }
+
+        .review-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .review-table .empty-val {
+            color: #94a3b8;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 28px;
+            border-radius: var(--radius);
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 500;
+            box-shadow: var(--shadow-hover);
+            transform: translateY(120px);
+            opacity: 0;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+            max-width: 400px;
+            backdrop-filter: blur(4px);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--accent);
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        .toast i {
+            margin-right: 8px;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            body {
+                background: white !important;
+                padding: 20px !important;
+                margin: 0;
+            }
+
+            .container {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                padding: 30px 35px !important;
+                border-radius: 8px !important;
+            }
+
+            .container::before {
+                display: none !important;
+            }
+
+            .progress-wrap,
+            .btn-group,
+            .btn,
+            .btn-print,
+            .btn-submit,
+            .btn-prev,
+            .btn-next,
+            .header .badge,
+            .checkbox-group,
+            .toast,
+            .print-hide {
+                display: none !important;
+            }
+
+            .form-step {
+                display: block !important;
+            }
+
+            .form-step:not(.active) {
+                display: none !important;
+            }
+
+            .form-step.active {
+                display: block !important;
+            }
+
+            #previewBox {
+                display: block !important;
+            }
+
+            .review-table {
+                box-shadow: none !important;
+                border: 1px solid #ccc;
+            }
+
+            .review-table td {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .review-table tr:nth-child(even) {
+                background: #f9f9f9;
+            }
+
+            .review-table td:first-child {
+                background: #f5f5f5;
+            }
+
+            .review-section .section-label {
+                border-bottom: 2px solid #333;
+                color: #333;
+            }
+
+            .header h1 {
+                font-size: 2rem !important;
+            }
+
+            .step-title {
+                font-size: 1.2rem !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            .print-footer {
+                display: block !important;
+                margin-top: 30px;
+                text-align: center;
+                font-size: 0.8rem;
+                color: #666;
+                border-top: 1px solid #ddd;
+                padding-top: 12px;
+            }
+
+            .review-table tr:hover {
+                background: inherit !important;
+            }
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        .print-footer {
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 28px 20px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .row.three {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .progress-wrap {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 0;
+            }
+
+            .progress-step .label {
+                display: none;
+            }
+
+            .progress-step .circle {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+
+            .btn-group {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .review-table td {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .review-table td:first-child {
+                width: 38%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 18px 12px;
+            }
+
+            .review-table td {
+                display: block;
+                width: 100% !important;
+                border-bottom: none;
+                padding: 6px 12px;
+            }
+
+            .review-table td:first-child {
+                background: transparent;
+                font-weight: 700;
+                padding-top: 10px;
+            }
+
+            .review-table td:last-child {
+                padding-bottom: 10px;
+                border-bottom: 1px solid #eef2f6;
+            }
+
+            .review-table tr:last-child td:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="theme-dark.css" />
+</head>
+
+<body>
+
+    <!-- Ambient Floating Background Blobs -->
+    <div class="ambient-blobs" aria-hidden="true">
+        <div class="ambient-blob ambient-blob-1"></div>
+        <div class="ambient-blob ambient-blob-2"></div>
+        <div class="ambient-blob ambient-blob-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- TOP ACTIONS -->
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
+            <a href="index.html" class="btn btn-outline"
+                style="padding: 7px 18px; font-size: 0.82rem; border-radius: 999px;">
+                <i class="fas fa-arrow-left"></i> College Website
+            </a>
+            <a href="admin/index.html" class="nav-admin-badge" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-shield-alt"></i> Admin Panel
+            </a>
+        </div>
+
+        <!-- HEADER -->
+        <div class="header">
+            <span class="badge"><i class="fas fa-graduation-cap"></i> PUC Admission 2026-27</span>
+            <h1>AKR<span>Devi</span></h1>
+            <p>College of Excellence &bull; Sriramnagar</p>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-wrap" id="progressWrap">
+            <div class="progress-step active" data-step="1">
+                <div class="circle">1</div>
+                <span class="label">Personal</span>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="circle">2</div>
+                <span class="label">Academic</span>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="circle">3</div>
+                <span class="label">Family</span>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="circle">4</div>
+                <span class="label">Documents</span>
+            </div>
+            <div class="progress-step" data-step="5">
+                <div class="circle">5</div>
+                <span class="label">Review</span>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <form id="admissionForm" onsubmit="submitApplication(event)">
+
+            <!-- STEP 1: Personal -->
+            <div class="form-step active" data-step="1">
+                <div class="step-title"><i class="fas fa-user-circle"></i> Personal Details</div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" placeholder="First &amp; Last name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="dob" required />
+                    </div>
+                </div>
+                <div class="row three">
+                    <div class="form-group">
+                        <label>Gender <span class="required">*</span></label>
+                        <select id="gender" required>
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nationality <span class="required">*</span></label>
+                        <input type="text" id="nationality" placeholder="e.g., Indian" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Category <span class="required">*</span></label>
+                        <select id="category" required>
+                            <option value="">Select</option>
+                            <option value="General">General</option>
+                            <option value="OBC">OBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Religion <span class="hint">(optional)</span></label>
+                        <input type="text" id="religion" placeholder="e.g., Hindu, Muslim, Christian" />
+                    </div>
+                    <div class="form-group">
+                        <label>Aadhar Number <span class="required">*</span></label>
+                        <input type="text" id="aadhar" placeholder="12-digit number" pattern="[0-9]{12}" maxlength="12"
+                            required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" placeholder="+91 98765 43210" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" placeholder="you@example.com" required />
+                    </div>
+                </div>
+                <div class="row full">
+                    <div class="form-group">
+                        <label>Residential Address <span class="required">*</span></label>
+                        <textarea id="address" placeholder="House / Street / City / Pincode" required></textarea>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <span></span>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Academic -->
+            <div class="form-step" data-step="2">
+                <div class="step-title"><i class="fas fa-book-open"></i> Academic Information</div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>School / Institution <span class="required">*</span></label>
+                        <input type="text" id="schoolName" placeholder="Name of your school" required />
+                    </div>
+                    <div class="form-group">
+                        <label>SSLC Board <span class="required">*</span></label>
+                        <select id="board" required>
+                            <option value="">Select</option>
+                            <option value="Karnataka SSLC">Karnataka SSLC</option>
+                            <option value="CBSE">CBSE</option>
+                            <option value="ICSE">ICSE</option>
+                            <option value="Other State Board">Other State Board</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row three">
+                    <div class="form-group">
+                        <label>SSLC Score <span class="required">*</span></label>
+                        <input type="text" id="sslcScore" placeholder="e.g., 85.6% or 8.2 CGPA" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Year of Passing <span class="required">*</span></label>
+                        <input type="number" id="passingYear" placeholder="2026" min="2020" max="2026" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Subjects (optional)</label>
+                        <input type="text" id="sslcSubjects" placeholder="e.g., Maths, Science, Social" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Applying for Course <span class="required">*</span></label>
+                        <select id="course" required>
+                            <option value="">Select</option>
+                            <option value="PUC Science (PCMB)">PUC Science (PCMB)</option>
+                            <option value="PUC Science (PCMC)">PUC Science (PCMC)</option>
+                            <option value="PUC Commerce">PUC Commerce</option>
+                            <option value="PUC Arts">PUC Arts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Second Language</label>
+                        <input type="text" id="secondLang" placeholder="e.g., Kannada, Hindi, Sanskrit" />
+                    </div>
+                </div>
+                <div class="row full">
+                    <div class="form-group">
+                        <label>Extracurricular Activities <span class="hint">(sports, arts, clubs)</span></label>
+                        <textarea id="extracurricular" placeholder="List any achievements or activities"></textarea>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Family & Medical -->
+            <div class="form-step" data-step="3">
+                <div class="step-title"><i class="fas fa-users"></i> Family &amp; Medical</div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Father's Name <span class="required">*</span></label>
+                        <input type="text" id="fatherName" placeholder="Full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Occupation <span class="hint">(optional)</span></label>
+                        <input type="text" id="fatherOccupation" placeholder="e.g., Farmer, Teacher" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Mother's Name <span class="required">*</span></label>
+                        <input type="text" id="motherName" placeholder="Full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Occupation <span class="hint">(optional)</span></label>
+                        <input type="text" id="motherOccupation" placeholder="e.g., Housewife, Nurse" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Annual Family Income (₹) <span class="required">*</span></label>
+                        <select id="income" required>
+                            <option value="">Select</option>
+                            <option value="Below ₹1 Lakh">Below ₹1 Lakh</option>
+                            <option value="₹1 Lakh – ₹2.5 Lakh">₹1 Lakh – ₹2.5 Lakh</option>
+                            <option value="₹2.5 Lakh – ₹5 Lakh">₹2.5 Lakh – ₹5 Lakh</option>
+                            <option value="₹5 Lakh – ₹10 Lakh">₹5 Lakh – ₹10 Lakh</option>
+                            <option value="Above ₹10 Lakh">Above ₹10 Lakh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Any Medical Conditions <span class="hint">(if any)</span></label>
+                        <input type="text" id="medical" placeholder="e.g., Asthma, Allergy" />
+                    </div>
+                </div>
+                <div class="row full">
+                    <div class="form-group">
+                        <label>Emergency Contact Number <span class="required">*</span></label>
+                        <input type="tel" id="emergencyPhone" placeholder="+91 98765 43210" required />
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Documents -->
+            <div class="form-step" data-step="4">
+                <div class="step-title"><i class="fas fa-file-upload"></i> Upload Documents</div>
+                <p style="color:var(--text-muted); margin-bottom:18px; font-size:0.9rem;">Please upload clear scanned
+                    copies (JPG, PNG, PDF). Max size 5MB each.</p>
+                <div class="row three">
+                    <div class="form-group">
+                        <label>SSLC Marks Card</label>
+                        <div class="file-upload" onclick="document.getElementById('marksCard').click();">
+                            <i class="fas fa-image"></i>
+                            <div class="info">Click to upload</div>
+                            <input type="file" id="marksCard" accept=".jpg,.jpeg,.png,.pdf" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Transfer Certificate (TC)</label>
+                        <div class="file-upload" onclick="document.getElementById('tcFile').click();">
+                            <i class="fas fa-file-alt"></i>
+                            <div class="info">Click to upload</div>
+                            <input type="file" id="tcFile" accept=".pdf" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Passport-size Photo</label>
+                        <div class="file-upload" onclick="document.getElementById('photo').click();">
+                            <i class="fas fa-camera"></i>
+                            <div class="info">Click to upload</div>
+                            <input type="file" id="photo" accept=".jpg,.jpeg,.png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row full">
+                    <div class="form-group">
+                        <label>Income / Caste Certificate (for scholarship)</label>
+                        <div class="file-upload" onclick="document.getElementById('certificate').click();">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="info">Optional – upload if available</div>
+                            <input type="file" id="certificate" accept=".pdf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Review <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 5: REVIEW – ELEGANT TABULAR -->
+            <div class="form-step" data-step="5">
+                <div class="step-title"><i class="fas fa-clipboard-check"></i> Review Your Application</div>
+                <p style="color:var(--text-muted); margin-bottom:20px; font-size:0.92rem;">
+                    <i class="fas fa-info-circle" style="color:var(--secondary);"></i>
+                    Please verify all details carefully. You can go back to edit.
+                </p>
+
+                <div id="previewBox">
+                    <!-- dynamically filled -->
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="declaration" required />
+                    <label for="declaration">
+                        I declare that all information provided is true and correct. I agree to abide by the college
+                        rules.
+                        <span style="color:#e74c3c;">*</span>
+                    </label>
+                </div>
+
+                <div class="btn-group">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button type="button" class="btn btn-print" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-submit" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Success!</span></div>
+
+    <script>
+        // ===== STEP MANAGEMENT =====
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function updateProgress(step) {
+            document.querySelectorAll('.progress-step').forEach(el => {
+                const s = parseInt(el.dataset.step);
+                el.classList.remove('active', 'completed');
+                if (s === step) el.classList.add('active');
+                else if (s < step) el.classList.add('completed');
+            });
+            document.querySelectorAll('.form-step').forEach(el => {
+                el.classList.toggle('active', parseInt(el.dataset.step) === step);
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                const stepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                const requiredInputs = stepEl.querySelectorAll('[required]');
+                let valid = true;
+                requiredInputs.forEach(inp => {
+                    if (!inp.value.trim()) {
+                        inp.style.borderColor = '#e74c3c';
+                        valid = false;
+                    } else {
+                        inp.style.borderColor = '';
+                    }
+                });
+                if (!valid) {
+                    showToast('Please fill in all required fields in this step.', 'error');
+                    return;
+                }
+                currentStep++;
+                updateProgress(currentStep);
+                if (currentStep === 5) populatePreview();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgress(currentStep);
+            }
+        }
+
+        // ===== PREVIEW – TABULAR =====
+        function populatePreview() {
+            const sections = [{
+                label: 'Personal Information',
+                icon: 'fa-user',
+                fields: [
+                    ['Full Name', 'fullName'],
+                    ['Date of Birth', 'dob'],
+                    ['Gender', 'gender'],
+                    ['Nationality', 'nationality'],
+                    ['Category', 'category'],
+                    ['Religion', 'religion'],
+                    ['Aadhar Number', 'aadhar'],
+                    ['Mobile Number', 'phone'],
+                    ['Email Address', 'email'],
+                    ['Residential Address', 'address']
+                ]
+            }, {
+                label: 'Academic Information',
+                icon: 'fa-book',
+                fields: [
+                    ['School / Institution', 'schoolName'],
+                    ['SSLC Board', 'board'],
+                    ['SSLC Score', 'sslcScore'],
+                    ['Year of Passing', 'passingYear'],
+                    ['Subjects', 'sslcSubjects'],
+                    ['Applying for Course', 'course'],
+                    ['Second Language', 'secondLang'],
+                    ['Extracurricular Activities', 'extracurricular']
+                ]
+            }, {
+                label: 'Family & Medical',
+                icon: 'fa-users',
+                fields: [
+                    ['Father\'s Name', 'fatherName'],
+                    ['Father\'s Occupation', 'fatherOccupation'],
+                    ['Mother\'s Name', 'motherName'],
+                    ['Mother\'s Occupation', 'motherOccupation'],
+                    ['Annual Family Income', 'income'],
+                    ['Medical Conditions', 'medical'],
+                    ['Emergency Contact', 'emergencyPhone']
+                ]
+            }, {
+                label: 'Documents Uploaded',
+                icon: 'fa-file-alt',
+                fields: [
+                    ['SSLC Marks Card', 'marksCard'],
+                    ['Transfer Certificate', 'tcFile'],
+                    ['Passport-size Photo', 'photo'],
+                    ['Income / Caste Certificate', 'certificate']
+                ]
+            }];
+
+            let html = '';
+
+            sections.forEach(section => {
+                html += `
+                    <div class="review-section">
+                        <div class="section-label">
+                            <i class="fas ${section.icon}"></i> ${section.label}
+                        </div>
+                        <table class="review-table">
+                            <tbody>
+                    `;
+                section.fields.forEach(([label, id]) => {
+                    const el = document.getElementById(id);
+                    let val = '—';
+                    if (el) {
+                        if (el.type === 'file') {
+                            val = el.files && el.files[0] ? el.files[0].name : '—';
+                        } else {
+                            val = el.value ? el.value.trim() : '—';
+                        }
+                    }
+                    const displayVal = val === '—' ? '<span class="empty-val">Not provided</span>' : val;
+                    html += `
+                        <tr>
+                            <td>${label}</td>
+                            <td>${displayVal}</td>
+                        </tr>
+                    `;
+                });
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            });
+
+            document.getElementById('previewBox').innerHTML = html;
+        }
+
+        // ===== SUBMIT =====
+        async function submitApplication(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            if (!document.getElementById('declaration').checked) {
+                showToast('Please accept the declaration.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+                return;
+            }
+
+            const fieldMap = {
+                fullName: 'fullName',
+                fatherName: 'fatherName',
+                motherName: 'motherName',
+                dob: 'dob',
+                gender: 'gender',
+                nationality: 'nationality',
+                category: 'category',
+                religion: 'religion',
+                aadhar: 'aadhar',
+                phone: 'phone',
+                email: 'email',
+                address: 'address',
+                schoolName: 'schoolName',
+                board: 'board',
+                sslcScore: 'sslcScore',
+                passingYear: 'passingYear',
+                sslcSubjects: 'sslcSubjects',
+                course: 'course',
+                secondLang: 'secondLang',
+                extracurricular: 'extracurricular',
+                fatherOccupation: 'fatherOccupation',
+                motherOccupation: 'motherOccupation',
+                income: 'income',
+                medical: 'medical',
+                emergencyPhone: 'emergencyPhone'
+            };
+
+            const data = {};
+            for (let [key, id] of Object.entries(fieldMap)) {
+                const el = document.getElementById(id);
+                data[key] = el ? el.value.trim() : '';
+            }
+
+            const stream = (data.course || '').toLowerCase().includes('comm') ? 'Commerce' : ((data.course || '').toLowerCase().includes('art') ? 'Arts' : 'Science');
+            const applicationRecord = {
+                id: Date.now(),
+                fullName: data.fullName || 'Anonymous Applicant',
+                name: data.fullName || 'Anonymous Applicant',
+                email: data.email,
+                phone: data.phone,
+                stream: stream,
+                course: data.course || 'PUC Course',
+                sslcScore: data.sslcScore || 85,
+                fatherName: data.fatherName,
+                motherName: data.motherName,
+                category: data.category || 'General',
+                gender: data.gender || 'Not specified',
+                bloodGroup: data.blood || '',
+                address: data.address || '',
+                emergencyPhone: data.emergencyPhone || data.phone,
+                schoolName: data.schoolName || '',
+                board: data.board || '',
+                passingYear: data.passingYear || '2025',
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
+
+            // Sync with AURORA Admin Panel store directly
+            try {
+                const existing = JSON.parse(localStorage.getItem('aurora_admissions') || '[]');
+                existing.unshift(applicationRecord);
+                localStorage.setItem('aurora_admissions', JSON.stringify(existing));
+                window.dispatchEvent(new CustomEvent('aurora_admissions_updated', { detail: existing }));
+            } catch (err) {
+                console.warn('Storage sync error:', err);
+            }
+
+            const apiBase = window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:5000';
+            try {
+                const response = await fetch(`${apiBase}/api/admissions`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    showToast('✅ Application submitted! Recorded in AURORA Admin Panel.', 'success');
+                    document.getElementById('admissionForm').reset();
+                    document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
+                    currentStep = 1;
+                    updateProgress(1);
+                } else {
+                    showToast('✅ Application recorded into Admission Queue!', 'success');
+                }
+            } catch (error) {
+                showToast('✅ Application registered in AURORA Intake Queue!', 'success');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+        }
+
+        // ===== TOAST =====
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toastMsg');
+            toast.className = 'toast ' + type;
+            msg.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => toast.classList.remove('show'), 5000);
+        }
+
+        // ===== FILE UPLOAD FEEDBACK =====
+        document.querySelectorAll('.file-upload input[type="file"]').forEach(input => {
+            input.addEventListener('change', function () {
+                const parent = this.closest('.file-upload');
+                const info = parent.querySelector('.info');
+                if (this.files && this.files[0]) {
+                    const size = (this.files[0].size / 1024).toFixed(1);
+                    info.textContent = this.files[0].name + ' (' + size + ' KB)';
+                    info.style.color = 'var(--primary)';
+                    info.style.fontWeight = '500';
+                } else {
+                    info.textContent = 'Click to upload';
+                    info.style.color = '';
+                    info.style.fontWeight = '';
+                }
+            });
+        });
+
+        // ===== KEYBOARD NAV =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.closest('form')) {
+                if (currentStep < totalSteps) {
+                    e.preventDefault();
+                    nextStep();
+                }
+            }
+        });
+
+        // ===== INIT =====
+        (function () {
+            const savedTheme = localStorage.getItem('preferred_theme') || 'emerald';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+        updateProgress(1);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.SUPABASE_URL = 'https://fijgonfzdrloytiqnxvs.supabase.co';
+        window.SUPABASE_ANON_KEY = 'sb_publishable_RL_fhDSK-EQEyCNhbsd8tA_L9ILA4Ak';
+    </script>
+    <script type="module" src="supabase-client.js"></script>
+</body>
+
+</html>

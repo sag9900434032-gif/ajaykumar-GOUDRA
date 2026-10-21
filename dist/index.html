@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="AKR Devi Memorial PU College (RK0112) – Premier co-educational higher secondary institution in Sriramnagar, Koppal, Karnataka. Offering PUC Science & Commerce streams with 20+ years of excellence." />
+    <title>AKR Devi Memorial PU College — Excellence in Higher Secondary</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Unified College Design System -->
+    <link rel="stylesheet" href="theme-dark.css" />
+</head>
+
+<body>
+
+    <!-- Ambient Floating Background Blobs -->
+    <div class="ambient-blobs" aria-hidden="true">
+        <div class="ambient-blob ambient-blob-1"></div>
+        <div class="ambient-blob ambient-blob-2"></div>
+        <div class="ambient-blob ambient-blob-3"></div>
+    </div>
+
+    <!-- ===== TOP BAR ===== -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-info">
+                <span><i class="fas fa-phone-alt"></i> +91 98765 43210</span>
+                <span><i class="fas fa-envelope"></i> admissions@akrdevi.edu.in</span>
+                <span><i class="fas fa-map-marker-alt"></i> Sriramnagar, Koppal, Karnataka</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                <!-- Live Theme Switcher Pill -->
+                <div class="theme-selector-pill" title="Switch Portal Theme">
+                    <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); margin-right: 2px;">
+                        <i class="fas fa-palette"></i> Theme:
+                    </span>
+                    <button class="theme-opt-btn active" onclick="switchTheme('emerald')" id="btn-theme-emerald">
+                        <i class="fas fa-leaf"></i> Emerald
+                    </button>
+                    <button class="theme-opt-btn" onclick="switchTheme('royal')" id="btn-theme-royal">
+                        <i class="fas fa-gem"></i> Royal
+                    </button>
+                    <button class="theme-opt-btn" onclick="switchTheme('crimson')" id="btn-theme-crimson">
+                        <i class="fas fa-fire"></i> Crimson
+                    </button>
+                    <button class="theme-opt-btn" onclick="switchTheme('ivory')" id="btn-theme-ivory">
+                        <i class="fas fa-sun"></i> Ivory
+                    </button>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <a href="#" style="color: var(--text-muted); font-size: 0.85rem;"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="#" style="color: var(--text-muted); font-size: 0.85rem;"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: var(--text-muted); font-size: 0.85rem;"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN STICKY NAVIGATION ===== -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <div class="logo-crest">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>AKR<span>Devi</span></h1>
+                    <small>PU College · Sriramnagar</small>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#streams">Streams</a></li>
+                <li><a href="#campus">Campus</a></li>
+                <li><a href="#faculty">Faculty</a></li>
+                <li><a href="#admissions">Admissions</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="admin/index.html" class="nav-admin-badge" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-shield-alt"></i> Admin Panel
+                    </a>
+                </li>
+                <li>
+                    <a href="#admissions" class="btn btn-primary" style="padding: 9px 22px; font-size: 0.86rem;">
+                        <i class="fas fa-paper-plane"></i> Apply 2026
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle Navigation"
+                style="background:none; border:none; color:var(--text-primary); font-size:1.5rem; cursor:pointer; display:none;">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Left: Headline, Value Proposition, Action Buttons & Stats -->
+                <div class="hero-content">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center;">
+                        <span class="pulse-badge" style="margin-bottom: 0;">
+                            <span class="pulse-dot"></span> Admissions Open 2026-27 · PU Board (RK0112)
+                        </span>
+                        <span class="badge"
+                            style="background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); color: var(--secondary-light);">
+                            <i class="fas fa-landmark"></i> Sriramnagar Main Campus
+                        </span>
+                    </div>
+
+                    <h1 class="serif-heading">
+                        Excellence in Higher Secondary <span class="gradient-text">Education</span>
+                    </h1>
+
+                    <p>
+                        Established in 2005, AKR Devi Memorial PU College provides world-class Pre-University
+                        Science & Commerce education with modern laboratories, distinguished faculty mentorship,
+                        and proven board examination leadership in Sriramnagar.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#admissions" class="btn btn-primary">
+                            <i class="fas fa-user-graduate"></i> Fast Application
+                        </a>
+                        <a href="#streams" class="btn btn-outline">
+                            <i class="fas fa-book-reader"></i> Explore Streams
+                        </a>
+                        <a href="admin/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-dark">
+                            <i class="fas fa-shield-alt"></i> Admin Portal
+                        </a>
+                    </div>
+
+                    <!-- 4 Institutional Telemetry Stats -->
+                    <div class="hero-stats-grid">
+                        <div class="stat-pill">
+                            <h3>20+</h3>
+                            <p>Years Legacy</p>
+                        </div>
+                        <div class="stat-pill">
+                            <h3>50+</h3>
+                            <p>Faculty Mentors</p>
+                        </div>
+                        <div class="stat-pill">
+                            <h3>1,200+</h3>
+                            <p>Active Scholars</p>
+                        </div>
+                        <div class="stat-pill">
+                            <h3>100%</h3>
+                            <p>Board Guidance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Admissions & Intelligence Card -->
+                <div class="hero-glass-card">
+                    <div class="card-header-badge">
+                        <span class="badge"><i class="fas fa-star"></i> Intake Telemetry</span>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary-light);">
+                            <i class="fas fa-circle" style="font-size: 0.5rem; vertical-align: middle;"></i> Live Intake
+                        </span>
+                    </div>
+
+                    <h3>Shape Your Future Career</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 16px;">
+                        Secure your admission into Karnataka's premier Pre-University programs. Merit-based fee
+                        concessions available.
+                    </p>
+
+                    <!-- Real-Time Stream Fill Indicator -->
+                    <div class="seat-indicator-wrap">
+                        <div class="seat-row">
+                            <div class="seat-meta">
+                                <span><i class="fas fa-flask"></i> Science Intake (PCMB / PCMC)</span>
+                                <span style="color: var(--primary-light);">82% Filled</span>
+                            </div>
+                            <div class="seat-bar-bg">
+                                <div class="seat-bar-fill fill-science"></div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-meta">
+                                <span><i class="fas fa-chart-line"></i> Commerce Intake (EBAC / HEBA)</span>
+                                <span style="color: var(--secondary-light);">74% Filled</span>
+                            </div>
+                            <div class="seat-bar-bg">
+                                <div class="seat-bar-fill fill-commerce"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Scholarship Calculator Widget -->
+                    <div class="scholarship-widget">
+                        <label><i class="fas fa-calculator"></i> 10th Score Scholarship Estimator</label>
+                        <select class="scholarship-select" id="scoreSelect" onchange="calcScholarship()">
+                            <option value="95">90% - 100% (Distinction Honours)</option>
+                            <option value="85" selected>80% - 89% (First Class with Distinction)</option>
+                            <option value="70">70% - 79% (First Class)</option>
+                            <option value="60">60% - 69% (Second Class)</option>
+                        </select>
+                        <div class="scholarship-result" id="scholarshipResultText">
+                            ✨ Eligible for: <strong>35% Tuition Fee Waiver</strong> + Free Coaching Materials
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-top: 24px;">
+                        <a href="#admissions" class="btn btn-brand" style="flex: 1; justify-content: center;">
+                            Apply Now <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="admission-portal.html" class="btn btn-outline" target="_blank"
+                            rel="noopener noreferrer" style="padding: 12px 18px;"
+                            title="Open Dedicated Multi-Step Portal">
+                            <i class="fas fa-external-link-alt"></i> Portal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHY CHOOSE US (FEATURES) ===== -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <span class="badge"><i class="fas fa-check-circle"></i> Institutional Pillars</span>
+                <h2 class="serif-heading">Why Choose AKR Devi PU College</h2>
+                <p>Designed to nurture intellectual curiosity, academic rigor, and holistic student growth.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h4>Distinguished Faculty</h4>
+                    <p>Experienced professors with MSc, MCom, and PhD qualifications offering individualized student
+                        care.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-microscope"></i></div>
+                    <h4>Modern Practical Labs</h4>
+                    <p>Fully equipped Physics, Chemistry, Biology, and Computer Science research laboratories.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-book-reader"></i></div>
+                    <h4>Rich Knowledge Library</h4>
+                    <p>Comprehensive repository of academic textbooks, reference journals, competitive exam modules, and
+                        digital access.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                    <h4>Career & Competitive Prep</h4>
+                    <p>Special guidance for KCET, NEET, JEE, and CA Foundation alongside standard Board curriculum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT US ===== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <!-- Left Card: Real Campus Landmark Photo Frame & Milestone -->
+                <div class="about-card-left">
+                    <div class="campus-photo-frame">
+                        <img src="assets/college-campus.jpg" alt="AKR Devi Memorial PU College Sriramnagar Campus"
+                            class="campus-main-img" />
+                        <div class="campus-photo-overlay">
+                            <div>
+                                <span class="badge"
+                                    style="background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(8px); border-color: rgba(255, 255, 255, 0.25); color: #FFFFFF;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--secondary);"></i> Sriramnagar
+                                    Main Campus
+                                </span>
+                            </div>
+                            <div class="years-pill">
+                                <span class="years-count">20+</span>
+                                <span class="years-label">Years of Educational Leadership in Koppal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Text: College Bio & Accreditations -->
+                <div class="about-text">
+                    <span class="badge"><i class="fas fa-certificate"></i> Government Recognized</span>
+                    <h2 class="serif-heading" style="font-size: 2.5rem; margin: 12px 0 16px;">
+                        AKR Devi Memorial PU College
+                    </h2>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 16px;">
+                        AKR Devi Memorial PU College (Institution Code: <strong>RK0112</strong>) is a premier
+                        co-educational
+                        higher secondary institution in Sriramnagar, Koppal district, Karnataka. Founded with the
+                        mission to bridge
+                        the educational divide, the college has established a benchmark in academic discipline and state
+                        board results.
+                    </p>
+
+                    <!-- Official Accreditation Checklist -->
+                    <ul class="accreditation-list">
+                        <li class="accreditation-item">
+                            <i class="fas fa-check-circle"></i> PU Board Karnataka: RK0112
+                        </li>
+                        <li class="accreditation-item">
+                            <i class="fas fa-check-circle"></i> UDISE Code: 29070213620
+                        </li>
+                        <li class="accreditation-item">
+                            <i class="fas fa-check-circle"></i> Type: Co-Educational
+                        </li>
+                        <li class="accreditation-item">
+                            <i class="fas fa-check-circle"></i> Management: Unaided Private
+                        </li>
+                        <li class="accreditation-item">
+                            <i class="fas fa-check-circle"></i> Classes: 11th & 12th (PUC I & II)
+                        </li>
+                        <li class="accreditation-item">
+                            <i class="fas fa-check-circle"></i> Campus: Sriramnagar, Koppal
+                        </li>
+                    </ul>
+
+                    <div style="margin-top: 32px;">
+                        <a href="#admissions" class="btn btn-primary">
+                            <i class="fas fa-file-signature"></i> Enroll For 2026 Session
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STREAMS & COURSES ===== -->
+    <section class="streams" id="streams">
+        <div class="container">
+            <div class="section-title">
+                <span class="badge"><i class="fas fa-graduation-cap"></i> Academic Pathways</span>
+                <h2 class="serif-heading">Pre-University Academic Streams</h2>
+                <p>Choose your pathway to top universities, engineering, medicine, and corporate leadership.</p>
+            </div>
+
+            <div class="streams-grid">
+                <!-- Science Stream -->
+                <div class="stream-card">
+                    <div class="stream-header">
+                        <div class="stream-title">
+                            <span class="badge"
+                                style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: var(--primary-light);">
+                                <i class="fas fa-atom"></i> Science Stream
+                            </span>
+                            <h3 style="margin-top: 10px;">PUC Science (PCMB / PCMC)</h3>
+                        </div>
+                        <div style="font-size: 1.8rem; color: var(--primary-light);">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                        Rigorous scientific curriculum preparing students for medical, engineering, biotech, and IT
+                        careers.
+                    </p>
+
+                    <div class="subject-tag-cloud">
+                        <span class="subject-chip">Physics</span>
+                        <span class="subject-chip">Chemistry</span>
+                        <span class="subject-chip">Mathematics</span>
+                        <span class="subject-chip">Biology</span>
+                        <span class="subject-chip">Computer Science</span>
+                        <span class="subject-chip">Kannada / English / Hindi</span>
+                    </div>
+
+                    <div class="career-box">
+                        <strong>Target Careers:</strong> MBBS, BDS, B.Tech / B.E., Data Science, Biotechnology,
+                        Architecture (KCET / NEET / JEE).
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+                        <span style="font-size: 0.84rem; font-weight: 700; color: var(--text-muted);">
+                            <i class="far fa-clock"></i> 2-Year Program
+                        </span>
+                        <a href="#admissions" class="btn btn-brand" style="padding: 9px 20px; font-size: 0.85rem;">
+                            Apply for Science
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Commerce Stream -->
+                <div class="stream-card">
+                    <div class="stream-header">
+                        <div class="stream-title">
+                            <span class="badge"
+                                style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: var(--secondary-light);">
+                                <i class="fas fa-coins"></i> Commerce Stream
+                            </span>
+                            <h3 style="margin-top: 10px;">PUC Commerce (EBAC / HEBA)</h3>
+                        </div>
+                        <div style="font-size: 1.8rem; color: var(--secondary-light);">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                        Dynamic business and economics foundation for finance, accounting, corporate governance, and
+                        entrepreneurship.
+                    </p>
+
+                    <div class="subject-tag-cloud">
+                        <span class="subject-chip">Economics</span>
+                        <span class="subject-chip">Business Studies</span>
+                        <span class="subject-chip">Accountancy</span>
+                        <span class="subject-chip">Computer Science</span>
+                        <span class="subject-chip">History</span>
+                        <span class="subject-chip">Kannada / English / Hindi</span>
+                    </div>
+
+                    <div class="career-box">
+                        <strong>Target Careers:</strong> Chartered Accountant (CA), Company Secretary (CS), B.Com, BBA,
+                        Banking & Stock Markets.
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+                        <span style="font-size: 0.84rem; font-weight: 700; color: var(--text-muted);">
+                            <i class="far fa-clock"></i> 2-Year Program
+                        </span>
+                        <a href="#admissions" class="btn btn-primary" style="padding: 9px 20px; font-size: 0.85rem;">
+                            Apply for Commerce
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Combinations Table -->
+            <div class="table-wrapper">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="font-size: 1.25rem; font-weight: 800;">
+                        <i class="fas fa-table" style="color: var(--secondary); margin-right: 8px;"></i> Official
+                        Subject Combinations & Capacity
+                    </h3>
+                    <span class="badge"><i class="fas fa-users"></i> Total Seats: 640</span>
+                </div>
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">Code</th>
+                            <th style="width: 20%;">Stream</th>
+                            <th style="width: 48%;">Core Subject Combination</th>
+                            <th style="width: 22%;">Intake Seats</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>01</strong></td>
+                            <td><span class="subject-chip" style="color: var(--primary-light);">Science</span></td>
+                            <td>Physics · Chemistry · Mathematics · Biology (PCMB)</td>
+                            <td><strong>480 Seats</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>02</strong></td>
+                            <td><span class="subject-chip" style="color: var(--primary-light);">Science</span></td>
+                            <td>Physics · Chemistry · Mathematics · Computer Science (PCMC)</td>
+                            <td><strong>80 Seats</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>03</strong></td>
+                            <td><span class="subject-chip" style="color: var(--secondary-light);">Commerce</span></td>
+                            <td>Economics · Business Studies · Accountancy · Computer Science (EBAC)</td>
+                            <td><strong>80 Seats</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CAMPUS SHOWCASE ===== -->
+    <section class="campus" id="campus">
+        <div class="container">
+            <div class="section-title">
+                <span class="badge"><i class="fas fa-building"></i> Infrastructure</span>
+                <h2 class="serif-heading">Campus Life & Infrastructure</h2>
+                <p>Equipped with state-of-the-art facilities that foster hands-on learning and character development.</p>
+            </div>
+
+            <div class="campus-showcase-grid">
+                <div class="campus-card">
+                    <div class="icon-circle"><i class="fas fa-flask"></i></div>
+                    <h4>Physics & Chemistry Labs</h4>
+                    <p>Modern experimental apparatus for board practicals and competitive science experimentation.</p>
+                </div>
+                <div class="campus-card">
+                    <div class="icon-circle"><i class="fas fa-desktop"></i></div>
+                    <h4>High-Tech Computer Lab</h4>
+                    <p>Equipped with modern high-speed workstations, programming environments, and broadband internet.
+                    </p>
+                </div>
+                <div class="campus-card">
+                    <div class="icon-circle"><i class="fas fa-book"></i></div>
+                    <h4>Central Knowledge Library</h4>
+                    <p>Over 10,000+ volumes, encyclopedias, competitive exam materials, and quiet reading zones.</p>
+                </div>
+                <div class="campus-card">
+                    <div class="icon-circle"><i class="fas fa-futbol"></i></div>
+                    <h4>Sports & Athletics Ground</h4>
+                    <p>Spacious arena for volleyball, cricket, badminton, and annual inter-college athletic meets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FACULTY MENTORS ===== -->
+    <section class="faculty" id="faculty">
+        <div class="container">
+            <div class="section-title">
+                <span class="badge"><i class="fas fa-user-tie"></i> Academic Leadership</span>
+                <h2 class="serif-heading">Meet Our Distinguished Faculty</h2>
+                <p>Passionate educators and subject matter experts dedicated to guiding every student toward success.
+                </p>
+            </div>
+
+            <div class="faculty-grid">
+                <div class="faculty-card">
+                    <div class="faculty-avatar">AP</div>
+                    <h4>Dr. Amaresh Patil</h4>
+                    <div class="faculty-role">Principal & Senior Lecturer</div>
+                    <div class="faculty-dept">Head of Department — Chemistry</div>
+                    <span class="faculty-degree">Ph.D, M.Sc, B.Ed</span>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-avatar">VT</div>
+                    <h4>Prof. Vishwanatayya</h4>
+                    <div class="faculty-role">Senior Lecturer</div>
+                    <div class="faculty-dept">Head of Department — Commerce</div>
+                    <span class="faculty-degree">M.Com, B.Ed</span>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-avatar">VN</div>
+                    <h4>Prof. Vinuta</h4>
+                    <div class="faculty-role">Assistant Lecturer</div>
+                    <div class="faculty-dept">Department of Biology (Zoology)</div>
+                    <span class="faculty-degree">M.Sc, B.Ed</span>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-avatar">RM</div>
+                    <h4>Prof. Ramanna</h4>
+                    <div class="faculty-role">Senior Lecturer</div>
+                    <div class="faculty-dept">Head of Department — Kannada Language</div>
+                    <span class="faculty-degree">M.A., B.Ed</span>
+                </div>
+
+                <div class="faculty-card">
+                    <img src="assets/mounesh-avatar.png" alt="Prof. Mounesh" class="faculty-avatar"
+                        style="object-fit: cover;" />
+                    <h4>Prof. Mounesh</h4>
+                    <div class="faculty-role">Assistant Lecturer</div>
+                    <div class="faculty-dept">Department of Chemistry</div>
+                    <span class="faculty-degree">M.Sc, B.Ed</span>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-avatar">PR</div>
+                    <h4>Prof. Prathap</h4>
+                    <div class="faculty-role">Senior Lecturer</div>
+                    <div class="faculty-dept">Head of Department — Mathematics</div>
+                    <span class="faculty-degree">M.Sc, B.Ed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ADMISSIONS & FAST APPLICATION FORM ===== -->
+    <section class="admissions-section" id="admissions">
+        <div class="container">
+            <div class="section-title">
+                <span class="badge"><i class="fas fa-user-plus"></i> Admissions 2026-27</span>
+                <h2 class="serif-heading">Start Your Application</h2>
+                <p>Submit your details online. Our admissions advisory office will confirm eligibility and contact you.
+                </p>
+            </div>
+
+            <div class="admissions-grid">
+                <!-- Contact Info Card -->
+                <div class="contact-card-info">
+                    <span class="badge"><i class="fas fa-compass"></i> Admissions Office</span>
+                    <h3 style="margin-top: 14px;">Visit Our Campus</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">
+                        We welcome parents and students for guided campus tours, career counseling, and stream selection
+                        advice.
+                    </p>
+
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <strong style="color: var(--text-primary); display:block; font-size: 0.88rem;">Call
+                                Admissions Helpline</strong>
+                            <span style="color: var(--primary-light); font-weight:700;">+91 98765 43210 / +91 98451
+                                23456</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <strong style="color: var(--text-primary); display:block; font-size: 0.88rem;">Official
+                                Email</strong>
+                            <span>admissions@akrdevi.edu.in</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <strong style="color: var(--text-primary); display:block; font-size: 0.88rem;">Campus
+                                Location</strong>
+                            <span>AKR Devi Memorial PU College, Sriramnagar, Koppal District, Karnataka - 583282</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="admission-portal.html" class="btn btn-outline" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fas fa-file-alt"></i> Detailed Multi-Step Portal
+                        </a>
+                        <a href="admin/index.html" class="btn btn-dark" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-lock"></i> Administration Login
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fast Application Form Card -->
+                <div class="admissions-form-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.45rem; font-weight: 800;">
+                            <i class="fas fa-edit" style="color: var(--secondary);"></i> Fast Registration
+                        </h3>
+                        <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--primary-light);">
+                            Instant Sync
+                        </span>
+                    </div>
+
+                    <form id="admissionFormEl" onsubmit="handleAdmission(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">Full Name (as in 10th Marks Card) *</label>
+                                <input type="text" id="fullName" placeholder="e.g., Ananya Sharma" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneAdm">Parent / Student Mobile *</label>
+                                <input type="tel" id="phoneAdm" placeholder="+91 98765 43210" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emailAdm">Email Address *</label>
+                                <input type="email" id="emailAdm" placeholder="student@example.com" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="courseAdm">Stream Choice *</label>
+                                <select id="courseAdm" required>
+                                    <option value="">— Select Preferred Stream —</option>
+                                    <option value="PUC Science - PCMB (Physics, Chem, Math, Bio)">PUC Science — PCMB
+                                    </option>
+                                    <option value="PUC Science - PCMC (Physics, Chem, Math, CompSci)">PUC Science — PCMC
+                                    </option>
+                                    <option value="PUC Commerce - EBAC (Economics, Bus, Acc, CompSci)">PUC Commerce —
+                                        EBAC</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="messageAdm">Previous 10th School / Marks / Remarks (optional)</label>
+                            <textarea id="messageAdm" rows="3"
+                                placeholder="Mention your 10th Board (SSLC/CBSE/ICSE) and marks % if available"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-brand"
+                            style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem;">
+                            <i class="fas fa-paper-plane"></i> Submit Application & Secure Seat
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo" style="margin-bottom: 16px;">
+                        <div class="logo-crest"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="logo-text">
+                            <h3 style="font-size: 1.3rem;">AKR<span>Devi</span></h3>
+                            <small>PU College · Sriramnagar</small>
+                        </div>
+                    </div>
+                    <p>
+                        A premier Pre-University educational institution in Sriramnagar, Koppal (RK0112).
+                        Committed to academic leadership, discipline, and empowering scholars since 2005.
+                    </p>
+                </div>
+
+                <div>
+                    <h4>Academics</h4>
+                    <ul>
+                        <li><a href="#streams">PUC Science (PCMB)</a></li>
+                        <li><a href="#streams">PUC Science (PCMC)</a></li>
+                        <li><a href="#streams">PUC Commerce (EBAC)</a></li>
+                        <li><a href="#streams">Subject Combinations</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About College</a></li>
+                        <li><a href="#campus">Campus Facilities</a></li>
+                        <li><a href="#faculty">Faculty Mentors</a></li>
+                        <li><a href="admission-portal.html" target="_blank" rel="noopener noreferrer">Admissions
+                                Portal</a></li>
+                        <li><a href="admin/index.html" target="_blank" rel="noopener noreferrer">Admin Login</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Campus Desk</h4>
+                    <p style="margin-bottom: 10px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--secondary);"></i> Sriramnagar, Koppal
+                        District, Karnataka - 583282
+                    </p>
+                    <p style="margin-bottom: 10px;">
+                        <i class="fas fa-phone-alt" style="color: var(--secondary);"></i> +91 98765 43210
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope" style="color: var(--secondary);"></i> info@akrdevi.edu.in
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2005–2026 <strong>AKR Devi Memorial PU College (RK0112)</strong>. All Rights Reserved.
+                </div>
+                <div>
+                    Managed under Karnataka Pre-University Education Board · UDISE: 29070213620
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Element -->
+    <div class="toast" id="toastBox">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- ===== JAVASCRIPT LOGIC ===== -->
+    <script>
+        // ---- Live Theme Switcher Engine ----
+        function switchTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('preferred_theme', themeName);
+
+            // Update button states
+            document.querySelectorAll('.theme-opt-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('btn-theme-' + themeName);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            showToast('🎨 Switched theme to: ' + themeName.toUpperCase(), 'success');
+        }
+
+        // Restore saved theme on load
+        (function () {
+            const savedTheme = localStorage.getItem('preferred_theme') || 'emerald';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const activeBtn = document.getElementById('btn-theme-' + savedTheme);
+            if (activeBtn) {
+                document.querySelectorAll('.theme-opt-btn').forEach(btn => btn.classList.remove('active'));
+                activeBtn.classList.add('active');
+            }
+        })();
+
+        // ---- Scholarship Calculator ----
+        function calcScholarship() {
+            const val = document.getElementById('scoreSelect').value;
+            const res = document.getElementById('scholarshipResultText');
+            if (val >= 90) {
+                res.innerHTML = '🎉 <strong>50% Merit Scholarship</strong> + Free Books + Free KCET/NEET Foundation!';
+            } else if (val >= 80) {
+                res.innerHTML = '✨ <strong>35% Tuition Fee Waiver</strong> + Free Coaching Modules!';
+            } else if (val >= 70) {
+                res.innerHTML = '📘 <strong>20% Merit Concession</strong> on First Term Tuition!';
+            } else {
+                res.innerHTML = '🎓 Standard Board Guidance & Easy Installment Option Available.';
+            }
+        }
+
+        // ---- Toast Notification ----
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toastBox');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = msg;
+            toast.className = 'toast show ' + type;
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3800);
+        }
+
+        // ---- Fast Admission Form Submission ----
+        async function handleAdmission(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phoneAdm').value.trim();
+            const email = document.getElementById('emailAdm').value.trim();
+            const course = document.getElementById('courseAdm').value;
+            const message = document.getElementById('messageAdm')?.value.trim() || '';
+
+            if (!name || !phone || !email || !course) {
+                showToast('Please fill in all mandatory fields.', 'error');
+                return;
+            }
+
+            const stream = course.toLowerCase().includes('comm') ? 'Commerce' : 'Science';
+            const applicationData = {
+                id: Date.now(),
+                fullName: name,
+                name: name,
+                email: email,
+                phone: phone,
+                stream: stream,
+                course: course,
+                sslcScore: 88.5,
+                message: message,
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
+
+            // Sync with AURORA Admin Panel store in localStorage
+            try {
+                const existing = JSON.parse(localStorage.getItem('aurora_admissions') || '[]');
+                existing.unshift(applicationData);
+                localStorage.setItem('aurora_admissions', JSON.stringify(existing));
+                window.dispatchEvent(new CustomEvent('aurora_admissions_updated', { detail: existing }));
+            } catch (err) {
+                console.warn('Storage sync error:', err);
+            }
+
+            // Sync with backend API if running
+            const apiBase = window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:5000';
+            try {
+                await fetch(`${apiBase}/api/admissions`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(applicationData)
+                });
+                showToast('✅ Application submitted! Synchronized with AURORA Admin Panel.', 'success');
+                document.getElementById('admissionFormEl').reset();
+            } catch (err) {
+                showToast('✅ Application registered in Admissions Queue!', 'success');
+                document.getElementById('admissionFormEl').reset();
+            }
+        }
+
+        // ---- Smooth Scrolling for Anchor Links ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const headerOffset = 90;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        console.log('🎓 AKR Devi Memorial PU College — Portal Initialized with Multi-Theme Engine');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.SUPABASE_URL = 'https://fijgonfzdrloytiqnxvs.supabase.co';
+        window.SUPABASE_ANON_KEY = 'sb_publishable_RL_fhDSK-EQEyCNhbsd8tA_L9ILA4Ak';
+    </script>
+    <script type="module" src="supabase-client.js"></script>
+</body>
+
+</html>

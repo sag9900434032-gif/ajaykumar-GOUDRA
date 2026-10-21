@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/admission",
+      "destination": "/admission-portal.html"
+    },
+    {
+      "source": "/admissions",
+      "destination": "/admission-portal.html"
+    },
+    {
+      "source": "/backend/admin-panel.html",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin-panel.html",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/admin/index.html"
+    }
+  ]
+}

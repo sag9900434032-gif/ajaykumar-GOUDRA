@@ -1,0 +1,822 @@
+// ============================================================
+// server.js – AKRDevi Admission & Registration Backend
+// Complete API for Admin Panel with Professional Payslip
+// ============================================================
+
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// ============================================================
+// DATA LAYER – In‑Memory (replace with DB in production)
+// ============================================================
+
+// ---------- Data Stores ----------
+let admissionData = [];
+let facultyData = [];
+let leaveData = [];
+let studentData = [];
+
+// ---------- Auto‑increment IDs ----------
+let nextAdmissionId = 1;
+let nextFacultyId = 1;
+let nextLeaveId = 1;
+let nextStudentId = 1;
+
+// ---------- Helper: Number to Words ----------
+function numberToWords(num) {
+  if (num === 0) return 'Zero';
+  const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+    'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+  const numStr = String(Math.round(num));
+  const len = numStr.length;
+  if (len <= 2) {
+    if (num < 20) return a[num];
+    return b[Math.floor(num / 10)] + (num % 10 ? ' ' + a[num % 10] : '');
+  }
+  if (len === 3) return a[Math.floor(num / 100)] + ' Hundred' + (num % 100 ? ' and ' + numberToWords(num % 100) : '');
+  if (len === 4) return a[Math.floor(num / 1000)] + ' Thousand' + (num % 1000 ? ' ' + numberToWords(num % 1000) : '');
+  if (len === 5) {
+    const t = Math.floor(num / 1000);
+    const r = num % 1000;
+    return numberToWords(t) + ' Thousand' + (r ? ' ' + numberToWords(r) : '');
+  }
+  if (len === 6) return a[Math.floor(num / 100000)] + ' Lakh' + (num % 100000 ? ' ' + numberToWords(num % 100000) : '');
+  if (len === 7) {
+    const l = Math.floor(num / 100000);
+    const r = num % 100000;
+    return numberToWords(l) + ' Lakh' + (r ? ' ' + numberToWords(r) : '');
+  }
+  return String(num);
+}
+
+// ---------- Helper: KGID Reference ----------
+function generateKgidRef(facultyId, month, year) {
+  const random = Math.floor(Math.random() * 9000) + 1000;
+  const monthCode = String(new Date(`${month} 1, ${year}`).getMonth() + 1).padStart(2, '0');
+  return `KGID/${year}/${monthCode}/${String(facultyId).padStart(4, '0')}/${random}`;
+}
+
+// ---------- Helper: Calculate Days ----------
+function calculateDays(from, to) {
+  return Math.ceil((new Date(to) - new Date(from)) / (1000 * 60 * 60 * 24)) + 1;
+}
+
+// ---------- Seed Data ----------
+function seedData() {
+  // Admissions
+  admissionData = [
+    {
+      id: 1,
+      name: 'Ravi Kumar',
+      stream: 'science',
+      grade: '11',
+      sslc: '92.5',
+      status: 'pending',
+      email: 'ravi@email.com',
+      phone: '+91 98765 43201',
+      father: 'Suresh Kumar',
+      mother: 'Suma Kumar',
+      address: 'Sriramnagar, Koppal',
+      dob: '2009-05-15',
+      category: 'General',
+      income: '₹2.5 Lakh – ₹5 Lakh',
+      gender: 'Male',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '123456789012',
+      blood: 'O+',
+      fatherOcc: 'Business',
+      motherOcc: 'Housewife',
+      emergency: '+91 98765 43211',
+      school: "St. Joseph's High School",
+      board: 'Karnataka SSLC',
+      passingYear: '2025',
+      subjects: 'Physics, Chemistry, Mathematics, Biology',
+      extra: 'Cricket, Chess',
+      medical: 'None',
+      reason: 'I want to pursue engineering.'
+    },
+    {
+      id: 2,
+      name: 'Sneha Patel',
+      stream: 'commerce',
+      grade: '12',
+      sslc: '88.2',
+      status: 'approved',
+      email: 'sneha@email.com',
+      phone: '+91 98765 43202',
+      father: 'Kiran Patel',
+      mother: 'Kavita Patel',
+      address: 'Gangavathi, Koppal',
+      dob: '2008-08-20',
+      category: 'OBC',
+      income: '₹1 Lakh – ₹2.5 Lakh',
+      gender: 'Female',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '234567890123',
+      blood: 'B+',
+      fatherOcc: 'Teacher',
+      motherOcc: 'Nurse',
+      emergency: '+91 98765 43212',
+      school: 'Gangavathi High School',
+      board: 'Karnataka SSLC',
+      passingYear: '2025',
+      subjects: 'Accountancy, Economics, Business Studies',
+      extra: 'Dance, Art',
+      medical: 'None',
+      reason: 'I aspire to become a CA.'
+    },
+    {
+      id: 3,
+      name: 'Arjun Mehta',
+      stream: 'science',
+      grade: '11',
+      sslc: '82.0',
+      status: 'pending',
+      email: 'arjun@email.com',
+      phone: '+91 98765 43203',
+      father: 'Vijay Mehta',
+      mother: 'Rekha Mehta',
+      address: 'Koppal Town',
+      dob: '2009-03-10',
+      category: 'General',
+      income: '₹5 Lakh – ₹10 Lakh',
+      gender: 'Male',
+      nationality: 'Indian',
+      religion: 'Jain',
+      aadhar: '345678901234',
+      blood: 'A+',
+      fatherOcc: 'Engineer',
+      motherOcc: 'Teacher',
+      emergency: '+91 98765 43213',
+      school: 'Koppal Public School',
+      board: 'CBSE',
+      passingYear: '2025',
+      subjects: 'Physics, Chemistry, Mathematics, CS',
+      extra: 'Football, Coding',
+      medical: 'Asthma',
+      reason: 'I love technology.'
+    },
+    {
+      id: 4,
+      name: 'Priya Reddy',
+      stream: 'science',
+      grade: '12',
+      sslc: '90.3',
+      status: 'approved',
+      email: 'priya@email.com',
+      phone: '+91 98765 43204',
+      father: 'Ramesh Reddy',
+      mother: 'Sujatha Reddy',
+      address: 'Sriramnagar, Koppal',
+      dob: '2008-11-25',
+      category: 'SC',
+      income: 'Below ₹1 Lakh',
+      gender: 'Female',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '456789012345',
+      blood: 'AB+',
+      fatherOcc: 'Farmer',
+      motherOcc: 'Housewife',
+      emergency: '+91 98765 43214',
+      school: 'Government High School',
+      board: 'Karnataka SSLC',
+      passingYear: '2025',
+      subjects: 'Physics, Chemistry, Mathematics, Biology',
+      extra: 'Kabaddi, Drawing',
+      medical: 'None',
+      reason: 'I want to become a doctor.'
+    },
+    {
+      id: 5,
+      name: 'Vikram Singh',
+      stream: 'commerce',
+      grade: '11',
+      sslc: '76.5',
+      status: 'rejected',
+      email: 'vikram@email.com',
+      phone: '+91 98765 43205',
+      father: 'Jai Singh',
+      mother: 'Neelam Singh',
+      address: 'Gangavathi, Koppal',
+      dob: '2009-07-30',
+      category: 'General',
+      income: '₹2.5 Lakh – ₹5 Lakh',
+      gender: 'Male',
+      nationality: 'Indian',
+      religion: 'Sikh',
+      aadhar: '567890123456',
+      blood: 'O-',
+      fatherOcc: 'Shopkeeper',
+      motherOcc: 'Housewife',
+      emergency: '+91 98765 43215',
+      school: 'Gangavathi Public School',
+      board: 'ICSE',
+      passingYear: '2025',
+      subjects: 'Accountancy, Economics, Business Studies',
+      extra: 'Cricket, Music',
+      medical: 'None',
+      reason: 'I want to start my own business.'
+    },
+    {
+      id: 6,
+      name: 'Ananya Sharma',
+      stream: 'arts',
+      grade: '12',
+      sslc: '68.9',
+      status: 'pending',
+      email: 'ananya@email.com',
+      phone: '+91 98765 43206',
+      father: 'Shyam Sharma',
+      mother: 'Geeta Sharma',
+      address: 'Koppal Town',
+      dob: '2008-09-12',
+      category: 'OBC',
+      income: '₹1 Lakh – ₹2.5 Lakh',
+      gender: 'Female',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '678901234567',
+      blood: 'B-',
+      fatherOcc: 'Driver',
+      motherOcc: 'Housewife',
+      emergency: '+91 98765 43216',
+      school: 'Koppal High School',
+      board: 'Karnataka SSLC',
+      passingYear: '2025',
+      subjects: 'History, Political Science, Sociology',
+      extra: 'Singing, Theater',
+      medical: 'None',
+      reason: 'I want to become a journalist.'
+    },
+    {
+      id: 7,
+      name: 'Kiran Raj',
+      stream: 'science',
+      grade: '11',
+      sslc: '93.1',
+      status: 'approved',
+      email: 'kiran@email.com',
+      phone: '+91 98765 43207',
+      father: 'Raju Raj',
+      mother: 'Meena Raj',
+      address: 'Sriramnagar, Koppal',
+      dob: '2009-01-18',
+      category: 'ST',
+      income: 'Below ₹1 Lakh',
+      gender: 'Male',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '789012345678',
+      blood: 'A-',
+      fatherOcc: 'Daily laborer',
+      motherOcc: 'Housewife',
+      emergency: '+91 98765 43217',
+      school: 'Government School, Sriramnagar',
+      board: 'Karnataka SSLC',
+      passingYear: '2025',
+      subjects: 'Physics, Chemistry, Mathematics, Electronics',
+      extra: 'Cricket, Chess',
+      medical: 'None',
+      reason: 'I want to become an engineer.'
+    },
+    {
+      id: 8,
+      name: 'Meera Nair',
+      stream: 'commerce',
+      grade: '12',
+      sslc: '81.7',
+      status: 'approved',
+      email: 'meera@email.com',
+      phone: '+91 98765 43208',
+      father: 'Gopal Nair',
+      mother: 'Sreedevi Nair',
+      address: 'Gangavathi, Koppal',
+      dob: '2008-06-22',
+      category: 'General',
+      income: '₹5 Lakh – ₹10 Lakh',
+      gender: 'Female',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '890123456789',
+      blood: 'AB-',
+      fatherOcc: 'Bank Manager',
+      motherOcc: 'Teacher',
+      emergency: '+91 98765 43218',
+      school: 'Gangavathi Central School',
+      board: 'CBSE',
+      passingYear: '2025',
+      subjects: 'Accountancy, Economics, Business Studies, Math',
+      extra: 'Bharatanatyam, Reading',
+      medical: 'None',
+      reason: 'I want to be a financial analyst.'
+    },
+    {
+      id: 9,
+      name: 'Suresh Bhat',
+      stream: 'arts',
+      grade: '11',
+      sslc: '74.4',
+      status: 'rejected',
+      email: 'suresh@email.com',
+      phone: '+91 98765 43209',
+      father: 'Krishna Bhat',
+      mother: 'Lalitha Bhat',
+      address: 'Koppal Town',
+      dob: '2009-04-05',
+      category: 'OBC',
+      income: '₹2.5 Lakh – ₹5 Lakh',
+      gender: 'Male',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '901234567890',
+      blood: 'O+',
+      fatherOcc: 'Carpenter',
+      motherOcc: 'Housewife',
+      emergency: '+91 98765 43219',
+      school: 'Koppal Arts School',
+      board: 'Karnataka SSLC',
+      passingYear: '2025',
+      subjects: 'History, Geography, Political Science',
+      extra: 'Painting, Cricket',
+      medical: 'None',
+      reason: 'I want to become a teacher.'
+    },
+    {
+      id: 10,
+      name: 'Lakshmi Iyer',
+      stream: 'science',
+      grade: '12',
+      sslc: '89.6',
+      status: 'pending',
+      email: 'lakshmi@email.com',
+      phone: '+91 98765 43210',
+      father: 'Narayan Iyer',
+      mother: 'Rukmini Iyer',
+      address: 'Sriramnagar, Koppal',
+      dob: '2008-10-14',
+      category: 'General',
+      income: 'Above ₹10 Lakh',
+      gender: 'Female',
+      nationality: 'Indian',
+      religion: 'Hindu',
+      aadhar: '012345678901',
+      blood: 'B+',
+      fatherOcc: 'Doctor',
+      motherOcc: 'Professor',
+      emergency: '+91 98765 43220',
+      school: 'Sriramnagar International School',
+      board: 'CBSE',
+      passingYear: '2025',
+      subjects: 'Physics, Chemistry, Mathematics, Biology',
+      extra: 'Swimming, Debating',
+      medical: 'None',
+      reason: 'I want to pursue biotech research.'
+    }
+  ];
+  nextAdmissionId = admissionData.length + 1;
+
+  // Faculty
+  facultyData = [
+    { id: 1, name: 'Dr. Rajesh Kumar', dob: '1980-06-15', gender: 'Male', marital: 'Married', email: 'rajesh.kumar@akrdevi.edu', phone: '+91 98765 43251', address: 'Sriramnagar, Koppal', department: 'Science', designation: 'Professor', joining: '2015-07-01', qualification: 'Ph.D. (Physics)', experience: 12, specialization: 'Quantum Mechanics', basicPay: 85000, bankAccount: '123456789012', ifsc: 'SBIN0001234', pan: 'ABCDE1234F', uan: '123456789012', status: 'active' },
+    { id: 2, name: 'Dr. Sunita Patil', dob: '1985-03-22', gender: 'Female', marital: 'Married', email: 'sunita.patil@akrdevi.edu', phone: '+91 98765 43252', address: 'Gangavathi, Koppal', department: 'Commerce', designation: 'Associate Professor', joining: '2016-08-15', qualification: 'Ph.D. (Commerce)', experience: 10, specialization: 'Financial Accounting', basicPay: 72000, bankAccount: '234567890123', ifsc: 'SBIN0005678', pan: 'BCDEF2345G', uan: '234567890123', status: 'active' },
+    { id: 3, name: 'Prof. Anil Mehta', dob: '1978-11-10', gender: 'Male', marital: 'Married', email: 'anil.mehta@akrdevi.edu', phone: '+91 98765 43253', address: 'Koppal Town', department: 'Arts', designation: 'Professor', joining: '2014-06-20', qualification: 'Ph.D. (History)', experience: 15, specialization: 'Medieval History', basicPay: 80000, bankAccount: '345678901234', ifsc: 'SBIN0009012', pan: 'CDEFG3456H', uan: '345678901234', status: 'active' },
+    { id: 4, name: 'Dr. Priya Sharma', dob: '1990-07-05', gender: 'Female', marital: 'Single', email: 'priya.sharma@akrdevi.edu', phone: '+91 98765 43254', address: 'Sriramnagar, Koppal', department: 'Science', designation: 'Assistant Professor', joining: '2020-01-10', qualification: 'Ph.D. (Chemistry)', experience: 5, specialization: 'Organic Chemistry', basicPay: 55000, bankAccount: '456789012345', ifsc: 'SBIN0003456', pan: 'DEFGH4567I', uan: '456789012345', status: 'active' },
+    { id: 5, name: 'Mr. Suresh Rao', dob: '1988-09-18', gender: 'Male', marital: 'Married', email: 'suresh.rao@akrdevi.edu', phone: '+91 98765 43255', address: 'Gangavathi, Koppal', department: 'Engineering', designation: 'Senior Lecturer', joining: '2018-06-01', qualification: 'M.Tech (CS)', experience: 8, specialization: 'Data Structures', basicPay: 62000, bankAccount: '567890123456', ifsc: 'SBIN0007890', pan: 'EFGHI5678J', uan: '567890123456', status: 'active' },
+    { id: 6, name: 'Dr. Latha Reddy', dob: '1983-04-28', gender: 'Female', marital: 'Married', email: 'latha.reddy@akrdevi.edu', phone: '+91 98765 43256', address: 'Koppal Town', department: 'Commerce', designation: 'Professor', joining: '2013-09-01', qualification: 'Ph.D. (Economics)', experience: 14, specialization: 'Microeconomics', basicPay: 78000, bankAccount: '678901234567', ifsc: 'SBIN0002345', pan: 'FGHIJ6789K', uan: '678901234567', status: 'active' },
+    { id: 7, name: 'Mr. Kiran Raj', dob: '1992-12-01', gender: 'Male', marital: 'Single', email: 'kiran.raj@akrdevi.edu', phone: '+91 98765 43257', address: 'Sriramnagar, Koppal', department: 'Engineering', designation: 'Assistant Professor', joining: '2021-07-15', qualification: 'M.E. (Electronics)', experience: 4, specialization: 'Embedded Systems', basicPay: 48000, bankAccount: '789012345678', ifsc: 'SBIN0006789', pan: 'GHIJK7890L', uan: '789012345678', status: 'active' },
+    { id: 8, name: 'Dr. Meera Nair', dob: '1986-08-14', gender: 'Female', marital: 'Married', email: 'meera.nair@akrdevi.edu', phone: '+91 98765 43258', address: 'Gangavathi, Koppal', department: 'Arts', designation: 'Associate Professor', joining: '2017-06-01', qualification: 'Ph.D. (English)', experience: 9, specialization: 'Modern Poetry', basicPay: 68000, bankAccount: '890123456789', ifsc: 'SBIN0008901', pan: 'IJKLM8901N', uan: '890123456789', status: 'active' },
+    { id: 9, name: 'Mr. Vikram Singh', dob: '1995-05-20', gender: 'Male', marital: 'Single', email: 'vikram.singh@akrdevi.edu', phone: '+91 98765 43259', address: 'Koppal Town', department: 'Science', designation: 'Lecturer', joining: '2022-01-10', qualification: 'M.Sc. (Math)', experience: 3, specialization: 'Applied Math', basicPay: 42000, bankAccount: '901234567890', ifsc: 'SBIN0000123', pan: 'JKLMN9012O', uan: '901234567890', status: 'active' },
+    { id: 10, name: 'Dr. Ananya Bhat', dob: '1982-10-30', gender: 'Female', marital: 'Married', email: 'ananya.bhat@akrdevi.edu', phone: '+91 98765 43260', address: 'Sriramnagar, Koppal', department: 'Commerce', designation: 'Head of Department', joining: '2012-06-15', qualification: 'Ph.D. (Management)', experience: 16, specialization: 'Organizational Behavior', basicPay: 92000, bankAccount: '012345678901', ifsc: 'SBIN0004567', pan: 'LMNOP0123Q', uan: '012345678901', status: 'active' },
+    { id: 11, name: 'Mr. Ravi Desai', dob: '1991-02-14', gender: 'Male', marital: 'Married', email: 'ravi.desai@akrdevi.edu', phone: '+91 98765 43261', address: 'Gangavathi, Koppal', department: 'Administration', designation: 'Administrator', joining: '2019-08-01', qualification: 'MBA (HR)', experience: 7, specialization: 'Human Resources', basicPay: 58000, bankAccount: '123456789012', ifsc: 'SBIN0007891', pan: 'MNOPQ1234R', uan: '123456789012', status: 'active' },
+    { id: 12, name: 'Dr. Shweta Iyer', dob: '1987-06-25', gender: 'Female', marital: 'Single', email: 'shweta.iyer@akrdevi.edu', phone: '+91 98765 43262', address: 'Koppal Town', department: 'Science', designation: 'Associate Professor', joining: '2016-07-20', qualification: 'Ph.D. (Biology)', experience: 10, specialization: 'Genetics', basicPay: 70000, bankAccount: '234567890123', ifsc: 'SBIN0002346', pan: 'NOPQR2345S', uan: '234567890123', status: 'active' }
+  ];
+  nextFacultyId = facultyData.length + 1;
+
+  // Leaves
+  leaveData = [
+    { id: 1, facultyId: 1, facultyName: 'Dr. Rajesh Kumar', type: 'Casual Leave', from: '2026-07-10', to: '2026-07-11', days: 2, reason: 'Family function', status: 'approved' },
+    { id: 2, facultyId: 2, facultyName: 'Dr. Sunita Patil', type: 'Sick Leave', from: '2026-07-15', to: '2026-07-16', days: 2, reason: 'Fever', status: 'pending' },
+    { id: 3, facultyId: 4, facultyName: 'Dr. Priya Sharma', type: 'Earned Leave', from: '2026-07-20', to: '2026-07-22', days: 3, reason: 'Personal work', status: 'pending' },
+    { id: 4, facultyId: 6, facultyName: 'Dr. Latha Reddy', type: 'Casual Leave', from: '2026-07-05', to: '2026-07-05', days: 1, reason: 'Medical appointment', status: 'approved' },
+    { id: 5, facultyId: 3, facultyName: 'Prof. Anil Mehta', type: 'Study Leave', from: '2026-07-25', to: '2026-07-30', days: 6, reason: 'Research work', status: 'pending' },
+    { id: 6, facultyId: 8, facultyName: 'Dr. Meera Nair', type: 'Sick Leave', from: '2026-07-01', to: '2026-07-03', days: 3, reason: 'Viral infection', status: 'approved' },
+    { id: 7, facultyId: 5, facultyName: 'Mr. Suresh Rao', type: 'Casual Leave', from: '2026-07-12', to: '2026-07-12', days: 1, reason: 'Personal errand', status: 'rejected' },
+    { id: 8, facultyId: 10, facultyName: 'Dr. Ananya Bhat', type: 'Earned Leave', from: '2026-07-18', to: '2026-07-19', days: 2, reason: 'Family visit', status: 'approved' },
+    { id: 9, facultyId: 12, facultyName: 'Dr. Shweta Iyer', type: 'Sick Leave', from: '2026-07-08', to: '2026-07-09', days: 2, reason: 'Migraine', status: 'pending' }
+  ];
+  nextLeaveId = leaveData.length + 1;
+
+  // Students (derived from approved admissions)
+  refreshStudents();
+}
+
+function refreshStudents() {
+  studentData = admissionData
+    .filter(a => a.status === 'approved')
+    .map((a, idx) => ({
+      id: idx + 1,
+      name: a.name,
+      stream: a.stream,
+      grade: a.grade,
+      email: a.email,
+      status: 'active',
+      admissionId: a.id
+    }));
+  nextStudentId = studentData.length + 1;
+}
+
+// Seed the data
+seedData();
+
+// ============================================================
+// API ROUTES
+// ============================================================
+
+// ---------- Health Check ----------
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// ---------- Admissions ----------
+app.get('/api/admissions', (req, res) => {
+  const { status, stream, search } = req.query;
+  let result = [...admissionData];
+  if (status && status !== 'all') result = result.filter(a => a.status === status);
+  if (stream && stream !== 'all') result = result.filter(a => a.stream === stream);
+  if (search) {
+    const s = search.toLowerCase();
+    result = result.filter(a =>
+      a.name.toLowerCase().includes(s) ||
+      String(a.id).includes(s) ||
+      a.email.toLowerCase().includes(s)
+    );
+  }
+  res.json(result);
+});
+
+app.get('/api/admissions/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const admission = admissionData.find(a => a.id === id);
+  if (!admission) return res.status(404).json({ error: 'Admission not found' });
+  res.json(admission);
+});
+
+app.post('/api/admissions', (req, res) => {
+  const newAdmission = { ...req.body, id: nextAdmissionId++, status: 'pending' };
+  const required = ['name', 'dob', 'gender', 'nationality', 'category', 'phone', 'email',
+    'address', 'father', 'mother', 'income', 'emergency', 'stream', 'grade', 'school',
+    'sslc', 'board', 'passingYear'];
+  for (const field of required) {
+    if (!newAdmission[field]) {
+      return res.status(400).json({ error: `Missing required field: ${field}` });
+    }
+  }
+  admissionData.push(newAdmission);
+  res.status(201).json(newAdmission);
+});
+
+app.put('/api/admissions/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = admissionData.findIndex(a => a.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Admission not found' });
+
+  const { status } = req.body;
+  if (!status || !['pending', 'approved', 'rejected'].includes(status)) {
+    return res.status(400).json({ error: 'Invalid status' });
+  }
+
+  admissionData[index].status = status;
+
+  if (status === 'approved') {
+    const exists = studentData.some(s => s.admissionId === id);
+    if (!exists) {
+      const a = admissionData[index];
+      studentData.push({
+        id: nextStudentId++,
+        name: a.name,
+        stream: a.stream,
+        grade: a.grade,
+        email: a.email,
+        status: 'active',
+        admissionId: a.id
+      });
+    }
+  } else if (status === 'rejected') {
+    studentData = studentData.filter(s => s.admissionId !== id);
+  }
+
+  res.json(admissionData[index]);
+});
+
+app.delete('/api/admissions/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = admissionData.findIndex(a => a.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Admission not found' });
+
+  studentData = studentData.filter(s => s.admissionId !== id);
+  admissionData.splice(index, 1);
+  res.status(204).send();
+});
+
+// ---------- Students ----------
+app.get('/api/students', (req, res) => {
+  const { stream, search } = req.query;
+  let result = [...studentData];
+  if (stream && stream !== 'all') result = result.filter(s => s.stream === stream);
+  if (search) {
+    const s = search.toLowerCase();
+    result = result.filter(st =>
+      st.name.toLowerCase().includes(s) ||
+      String(st.id).includes(s) ||
+      st.email.toLowerCase().includes(s)
+    );
+  }
+  res.json(result);
+});
+
+app.get('/api/students/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const student = studentData.find(s => s.id === id);
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+  res.json(student);
+});
+
+// ---------- Faculty ----------
+app.get('/api/faculty', (req, res) => {
+  const { department, search } = req.query;
+  let result = [...facultyData];
+  if (department && department !== 'all') result = result.filter(f => f.department === department);
+  if (search) {
+    const s = search.toLowerCase();
+    result = result.filter(f =>
+      f.name.toLowerCase().includes(s) ||
+      f.email.toLowerCase().includes(s) ||
+      f.designation.toLowerCase().includes(s)
+    );
+  }
+  res.json(result);
+});
+
+app.get('/api/faculty/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const faculty = facultyData.find(f => f.id === id);
+  if (!faculty) return res.status(404).json({ error: 'Faculty not found' });
+  res.json(faculty);
+});
+
+app.post('/api/faculty', (req, res) => {
+  const newFaculty = { ...req.body, id: nextFacultyId++, status: 'active' };
+  const required = ['name', 'dob', 'gender', 'email', 'phone', 'address', 'department',
+    'designation', 'joining', 'qualification', 'experience', 'basicPay'];
+  for (const field of required) {
+    if (newFaculty[field] === undefined || newFaculty[field] === '') {
+      return res.status(400).json({ error: `Missing required field: ${field}` });
+    }
+  }
+  facultyData.push(newFaculty);
+  res.status(201).json(newFaculty);
+});
+
+app.put('/api/faculty/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = facultyData.findIndex(f => f.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Faculty not found' });
+
+  const allowed = ['name', 'dob', 'gender', 'marital', 'email', 'phone', 'address',
+    'department', 'designation', 'joining', 'qualification', 'experience',
+    'specialization', 'basicPay', 'bankAccount', 'ifsc', 'pan', 'uan', 'status'];
+  for (const key of allowed) {
+    if (req.body[key] !== undefined) {
+      facultyData[index][key] = req.body[key];
+    }
+  }
+  res.json(facultyData[index]);
+});
+
+app.delete('/api/faculty/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = facultyData.findIndex(f => f.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Faculty not found' });
+  facultyData.splice(index, 1);
+  res.status(204).send();
+});
+
+// ---------- Leaves ----------
+app.get('/api/leaves', (req, res) => {
+  const { status, facultyId } = req.query;
+  let result = [...leaveData];
+  if (status && status !== 'all') result = result.filter(l => l.status === status);
+  if (facultyId) result = result.filter(l => l.facultyId === parseInt(facultyId));
+  res.json(result);
+});
+
+app.get('/api/leaves/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const leave = leaveData.find(l => l.id === id);
+  if (!leave) return res.status(404).json({ error: 'Leave not found' });
+  res.json(leave);
+});
+
+app.post('/api/leaves', (req, res) => {
+  const newLeave = { ...req.body, id: nextLeaveId++ };
+  const required = ['facultyId', 'facultyName', 'type', 'from', 'to', 'reason'];
+  for (const field of required) {
+    if (!newLeave[field]) {
+      return res.status(400).json({ error: `Missing required field: ${field}` });
+    }
+  }
+  newLeave.days = calculateDays(newLeave.from, newLeave.to);
+  newLeave.status = 'pending';
+  leaveData.push(newLeave);
+  res.status(201).json(newLeave);
+});
+
+app.put('/api/leaves/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = leaveData.findIndex(l => l.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Leave not found' });
+
+  const { status } = req.body;
+  if (!status || !['pending', 'approved', 'rejected'].includes(status)) {
+    return res.status(400).json({ error: 'Invalid status' });
+  }
+  leaveData[index].status = status;
+  res.json(leaveData[index]);
+});
+
+app.delete('/api/leaves/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = leaveData.findIndex(l => l.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Leave not found' });
+  leaveData.splice(index, 1);
+  res.status(204).send();
+});
+
+// ---------- Payslip ----------
+app.get('/api/payslip', (req, res) => {
+  const { facultyId, month, year } = req.query;
+  if (!facultyId) return res.status(400).json({ error: 'facultyId is required' });
+
+  const id = parseInt(facultyId);
+  const faculty = facultyData.find(f => f.id === id);
+  if (!faculty) return res.status(404).json({ error: 'Faculty not found' });
+
+  const currentMonth = month || new Date().toLocaleString('default', { month: 'long' });
+  const currentYear = year || new Date().getFullYear();
+
+  // Salary calculation
+  const basic = faculty.basicPay || 0;
+  const hra = Math.round(basic * 0.24);
+  const da = Math.round(basic * 0.17);
+  const ta = Math.round(basic * 0.08);
+  const special = Math.round(basic * 0.12);
+  const medical = 1250;
+  const conveyance = 1600;
+  const totalEarnings = basic + hra + da + ta + special + medical + conveyance;
+
+  const pf = Math.round(totalEarnings * 0.12);
+  const profTax = Math.round(basic * 0.005);
+  const esi = Math.round(totalEarnings * 0.0075);
+  const it = Math.round((totalEarnings - pf - 50000) * 0.1 > 0 ? (totalEarnings - pf - 50000) * 0.1 : 0);
+  const totalDeductions = pf + profTax + esi + it;
+  const netPay = totalEarnings - totalDeductions;
+
+  // Leave balance
+  const takenLeaves = leaveData
+    .filter(l => l.facultyId === faculty.id && l.status === 'approved')
+    .reduce((sum, l) => sum + l.days, 0);
+  const leaveBalance = 30 - takenLeaves;
+
+  const daysInMonth = new Date(currentYear, new Date(`${currentMonth} 1, ${currentYear}`).getMonth() + 1, 0).getDate();
+  const workingDays = daysInMonth - 4; // assuming 4 Sundays
+  const presentDays = workingDays - takenLeaves;
+
+  const kgidRef = generateKgidRef(faculty.id, currentMonth, currentYear);
+  const payslipNumber = `PS/${currentYear}/${String(faculty.id).padStart(3, '0')}/${String(Math.floor(Math.random() * 9000) + 1000)}`;
+
+  const payslip = {
+    payslipNumber,
+    kgidRef,
+    faculty: {
+      id: faculty.id,
+      name: faculty.name,
+      department: faculty.department,
+      designation: faculty.designation,
+      joining: faculty.joining,
+      bankAccount: faculty.bankAccount || '—',
+      ifsc: faculty.ifsc || '—',
+      pan: faculty.pan || '—',
+      uan: faculty.uan || '—',
+      email: faculty.email,
+      phone: faculty.phone,
+      address: faculty.address,
+    },
+    month: currentMonth,
+    year: currentYear,
+    daysInMonth,
+    workingDays,
+    presentDays,
+    leaveBalance,
+    salary: {
+      basic,
+      earnings: { hra, da, ta, special, medical, conveyance, total: totalEarnings },
+      deductions: { pf, profTax, esi, it, total: totalDeductions },
+      grossPay: totalEarnings,
+      totalDeductions,
+      netPay,
+      netPayWords: numberToWords(Math.round(netPay)) + ' Rupees Only',
+    },
+    generatedOn: new Date().toISOString(),
+    status: 'PAID',
+  };
+
+  res.json(payslip);
+});
+
+// ---------- Stats ----------
+app.get('/api/stats', (req, res) => {
+  const totalAdmissions = admissionData.length;
+  const pendingAdmissions = admissionData.filter(a => a.status === 'pending').length;
+  const approvedAdmissions = admissionData.filter(a => a.status === 'approved').length;
+  const rejectedAdmissions = admissionData.filter(a => a.status === 'rejected').length;
+  const totalStudents = studentData.length;
+  const totalFaculty = facultyData.length;
+  const pendingLeaves = leaveData.filter(l => l.status === 'pending').length;
+  const approvedLeaves = leaveData.filter(l => l.status === 'approved').length;
+
+  const deptCount = {};
+  facultyData.forEach(f => {
+    deptCount[f.department] = (deptCount[f.department] || 0) + 1;
+  });
+
+  const totalPayroll = facultyData.reduce((sum, f) => sum + (f.basicPay || 0), 0);
+  const avgExp = facultyData.length > 0
+    ? (facultyData.reduce((sum, f) => sum + (f.experience || 0), 0) / facultyData.length).toFixed(1)
+    : 0;
+
+  res.json({
+    admissions: {
+      total: totalAdmissions,
+      pending: pendingAdmissions,
+      approved: approvedAdmissions,
+      rejected: rejectedAdmissions,
+    },
+    students: totalStudents,
+    faculty: {
+      total: totalFaculty,
+      departments: deptCount,
+      totalPayroll,
+      avgExperience: avgExp,
+    },
+    leaves: {
+      pending: pendingLeaves,
+      approved: approvedLeaves,
+    },
+    todayRegistrations: Math.floor(Math.random() * 5) + 1,
+  });
+});
+
+// ============================================================
+// START SERVER
+// ============================================================
+app.listen(PORT, () => {
+  console.log(`
+  🚀 AKRDevi Backend Server
+  📡 Running on http://localhost:${PORT}
+  📊 API endpoints:
+    GET  /api/admissions    - List admissions (filters: ?status=, ?stream=, ?search=)
+    POST /api/admissions    - Create new admission
+    PUT  /api/admissions/:id - Update admission status
+    DEL  /api/admissions/:id - Delete admission
+
+    GET  /api/students      - List students (filters: ?stream=, ?search=)
+
+    GET  /api/faculty       - List faculty (filters: ?department=, ?search=)
+    POST /api/faculty       - Add faculty
+    PUT  /api/faculty/:id   - Update faculty
+    DEL  /api/faculty/:id   - Delete faculty
+
+    GET  /api/leaves        - List leaves (filters: ?status=, ?facultyId=)
+    POST /api/leaves        - Apply leave
+    PUT  /api/leaves/:id    - Update leave status
+    DEL  /api/leaves/:id    - Delete leave
+
+    GET  /api/payslip       - Generate payslip (?facultyId= & ?month= & ?year=)
+    GET  /api/stats         - Dashboard statistics
+    GET  /api/health        - Health check
+  `);
+});
