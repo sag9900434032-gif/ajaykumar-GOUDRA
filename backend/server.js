@@ -20,8 +20,8 @@ app.use(express.static(path.join(__dirname)));
 app.use(express.static(path.join(__dirname, '..')));
 
 // ─── Supabase Client ─────────────────────────────────────────
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://fijgonfzdrloytiqnxvs.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || 'sb_publishable_RL_fhDSK-EQEyCNhbsd8tA_L9ILA4Ak';
 
 let supabase = null;
 let supabaseConnected = false;

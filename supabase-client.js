@@ -1,5 +1,5 @@
-const SUPABASE_URL = window.SUPABASE_URL || 'https://your-project.supabase.co';
-const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'your-anon-key';
+const SUPABASE_URL = window.SUPABASE_URL || 'https://fijgonfzdrloytiqnxvs.supabase.co';
+const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'sb_publishable_RL_fhDSK-EQEyCNhbsd8tA_L9ILA4Ak';
 
 const supabaseClient = (() => {
     if (typeof window === 'undefined') return null;

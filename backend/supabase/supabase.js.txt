@@ -2,8 +2,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
 ...
     <script>
-        const SUPABASE_URL = 'https://YOUR_PROJECT_REF.supabase.co';
-        const SUPABASE_KEY = 'YOUR_ANON_KEY';
+        const SUPABASE_URL = 'https://fijgonfzdrloytiqnxvs.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_RL_fhDSK-EQEyCNhbsd8tA_L9ILA4Ak';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function uploadDocumentFiles(files) {
