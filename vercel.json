@@ -1,67 +1,35 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "services": {
-    "app": {
-      "root": ".",
-      "framework": "vite"
-    },
-    "aurora": {
-      "root": "aurora",
-      "framework": "vite"
-    },
-    "backend": {
-      "root": "backend",
-      "framework": "express",
-      "entrypoint": "server.js"
-    }
-  },
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": {
-        "service": "backend"
-      }
-    },
-    {
-      "source": "/admin",
-      "destination": {
-        "service": "aurora",
-        "path": "/"
-      }
-    },
-    {
-      "source": "/admin/(.*)",
-      "destination": {
-        "service": "aurora",
-        "path": "/$1"
-      }
-    },
-    {
-      "source": "/backend/admin-panel.html",
-      "destination": {
-        "service": "aurora",
-        "path": "/"
-      }
+      "destination": "/api/index.js"
     },
     {
       "source": "/admission",
-      "destination": {
-        "service": "app",
-        "path": "/admission-portal.html"
-      }
+      "destination": "/admission-portal.html"
     },
     {
       "source": "/admissions",
-      "destination": {
-        "service": "app",
-        "path": "/admission-portal.html"
-      }
+      "destination": "/admission-portal.html"
     },
     {
-      "source": "/(.*)",
-      "destination": {
-        "service": "app"
-      }
+      "source": "/backend/admin-panel.html",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin-panel.html",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/admin/index.html"
     }
   ]
 }
