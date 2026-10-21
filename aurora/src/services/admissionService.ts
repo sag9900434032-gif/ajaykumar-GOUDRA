@@ -160,8 +160,13 @@ const saveAdmissions = (list: AdmissionApplication[]) => {
 };
 
 const getApiBase = () => {
-  if (typeof window !== 'undefined' && window.location.origin.startsWith('http')) {
-    return window.location.origin;
+  if (typeof window !== 'undefined') {
+    if (window.location.port === '5173') {
+      return '';
+    }
+    if (window.location.origin.startsWith('http')) {
+      return window.location.origin;
+    }
   }
   return 'http://localhost:5000';
 };
