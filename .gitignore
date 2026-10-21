@@ -7,3 +7,5 @@ backend/node_modules/
 *.exe
 
 node_modules
+
+website/
