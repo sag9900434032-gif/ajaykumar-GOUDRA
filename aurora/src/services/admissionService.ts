@@ -160,6 +160,11 @@ const saveAdmissions = (list: AdmissionApplication[]) => {
 };
 
 const getApiBase = () => {
+  // Support Vercel Service Binding injected environment variable
+  const envProcess = (typeof globalThis !== 'undefined' ? (globalThis as any).process : undefined);
+  if (envProcess?.env?.BACKEND_URL) {
+    return envProcess.env.BACKEND_URL;
+  }
   if (typeof window !== 'undefined') {
     if (window.location.port === '5173') {
       return '';
