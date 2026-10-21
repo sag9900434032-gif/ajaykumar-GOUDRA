@@ -1,19 +1,35 @@
-const SUPABASE_URL = 'https://sfxoiqipxxlsbpwefkba.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_rkOj390C1J2Doc1AdtVPmQ_MUyOkjt2';
+const SUPABASE_URL = window.SUPABASE_URL || 'https://your-project.supabase.co';
+const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'your-anon-key';
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = (() => {
+    if (typeof window === 'undefined') return null;
+    if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+        console.warn('Supabase client not loaded. Include the Supabase JS SDK before this script or set the global window.SUPABASE_URL and window.SUPABASE_ANON_KEY values.');
+        return null;
+    }
+
+    return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false }
+    });
+})();
 
 async function uploadDocumentFiles(files) {
+    if (!supabaseClient) {
+        throw new Error('Supabase client is not configured. Add the Supabase SDK and set the public keys before uploading files.');
+    }
+
     const uploaded = {};
     for (const [key, file] of Object.entries(files)) {
         if (!file) {
             uploaded[key] = null;
             continue;
         }
+
         const filePath = `admission-docs/${Date.now()}_${file.name}`;
         const { error: uploadError } = await supabaseClient.storage
             .from('admission-docs')
             .upload(filePath, file, { cacheControl: '3600', upsert: false });
+
         if (uploadError) throw uploadError;
 
         const { data: urlData, error: urlError } = supabaseClient.storage
@@ -23,6 +39,7 @@ async function uploadDocumentFiles(files) {
         if (urlError) throw urlError;
         uploaded[key] = urlData.publicUrl;
     }
+
     return uploaded;
 }
 
@@ -78,6 +95,10 @@ async function submitApplication(event) {
     }
 
     try {
+        if (!supabaseClient) {
+            throw new Error('Supabase client is not configured. Set window.SUPABASE_URL and window.SUPABASE_ANON_KEY before submitting.');
+        }
+
         const fileInputs = {
             marksCard: document.getElementById('marksCard')?.files[0],
             tcFile: document.getElementById('tcFile')?.files[0],

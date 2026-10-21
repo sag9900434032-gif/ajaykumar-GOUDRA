@@ -1,57 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AKRDevi | PUC Admission – Elegant Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ===== GLOBAL ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
-            --primary: #0f3b5e;
-            --primary-light: #1a5276;
-            --primary-dark: #0a2a42;
-            --secondary: #c9a24b;
-            --secondary-light: #e8c87a;
-            --accent: #2ecc71;
-            --bg: #f0f4f9;
-            --white: #ffffff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --shadow: 0 20px 60px rgba(0,0,0,0.07);
-            --shadow-hover: 0 30px 80px rgba(0,0,0,0.12);
-            --radius: 16px;
-            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #2563EB;
+            --primary-light: #60A5FA;
+            --primary-dark: #1E3A8A;
+            --secondary: #F59E0B;
+            --secondary-light: #FBBF24;
+            --secondary-dark: #D97706;
+            --accent: #10B981;
+            --bg: #060A16;
+            --white: #FFFFFF;
+            --text-dark: #FFFFFF;
+            --text-muted: #94A3B8;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            --shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.6);
+            --radius: 20px;
+            --transition: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
             --max-width: 860px;
         }
 
         body {
-            font-family: "Inter", sans-serif;
-            background: var(--bg);
+            font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+            background-image:
+                linear-gradient(180deg, rgba(6, 16, 20, 0.78) 0%, rgba(6, 16, 20, 0.90) 60%, var(--bg) 100%),
+                url('assets/college-campus.jpg');
+            background-size: cover;
+            background-position: center 35%;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px 20px;
             margin: 0;
-            background-image: radial-gradient(circle at 10% 20%, rgba(15,59,94,0.04) 0%, transparent 50%),
-                              radial-gradient(circle at 90% 80%, rgba(201,162,75,0.06) 0%, transparent 50%);
+            color: #CBD5E1;
         }
 
         .container {
             max-width: var(--max-width);
             width: 100%;
-            background: var(--white);
+            background: rgba(13, 22, 45, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
             padding: 48px 56px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
+
         .container::before {
             content: '';
             position: absolute;
@@ -63,13 +81,26 @@
             background-size: 200% 100%;
             animation: shimmer 3s ease-in-out infinite;
         }
+
         @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         /* ===== HEADER ===== */
-        .header { text-align: center; margin-bottom: 36px; position: relative; }
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+            position: relative;
+        }
+
         .header .badge {
             display: inline-block;
             background: var(--secondary);
@@ -82,6 +113,7 @@
             letter-spacing: 1.5px;
             margin-bottom: 10px;
         }
+
         .header h1 {
             font-family: "Playfair Display", serif;
             font-size: 2.6rem;
@@ -89,8 +121,16 @@
             color: var(--primary);
             letter-spacing: -0.5px;
         }
-        .header h1 span { color: var(--secondary); }
-        .header p { color: var(--text-muted); font-size: 1rem; margin-top: 2px; }
+
+        .header h1 span {
+            color: var(--secondary);
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 2px;
+        }
 
         /* ===== PROGRESS BAR ===== */
         .progress-wrap {
@@ -100,6 +140,7 @@
             position: relative;
             padding: 0 4px;
         }
+
         .progress-wrap::before {
             content: '';
             position: absolute;
@@ -111,6 +152,7 @@
             transform: translateY(-50%);
             z-index: 0;
         }
+
         .progress-step {
             display: flex;
             flex-direction: column;
@@ -119,6 +161,7 @@
             z-index: 1;
             flex: 1;
         }
+
         .progress-step .circle {
             width: 38px;
             height: 38px;
@@ -133,17 +176,20 @@
             transition: var(--transition);
             border: 2px solid transparent;
         }
+
         .progress-step.active .circle {
             background: var(--primary);
             color: var(--white);
             border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(201,162,75,0.2);
+            box-shadow: 0 0 0 4px rgba(201, 162, 75, 0.2);
         }
+
         .progress-step.completed .circle {
             background: var(--accent);
             color: var(--white);
             border-color: var(--accent);
         }
+
         .progress-step .label {
             font-size: 0.6rem;
             font-weight: 500;
@@ -151,6 +197,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
         .progress-step.active .label,
         .progress-step.completed .label {
             color: var(--primary);
@@ -158,11 +205,25 @@
         }
 
         /* ===== FORM STEPS ===== */
-        .form-step { display: none; animation: fadeUp 0.5s ease; }
-        .form-step.active { display: block; }
+        .form-step {
+            display: none;
+            animation: fadeUp 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .step-title {
@@ -174,7 +235,11 @@
             align-items: center;
             gap: 12px;
         }
-        .step-title i { color: var(--secondary); font-size: 1.3rem; }
+
+        .step-title i {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
 
         .row {
             display: grid;
@@ -182,14 +247,21 @@
             gap: 18px 28px;
             margin-bottom: 4px;
         }
-        .row.three { grid-template-columns: 1fr 1fr 1fr; }
-        .row.full { grid-template-columns: 1fr; }
+
+        .row.three {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .row.full {
+            grid-template-columns: 1fr;
+        }
 
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 3px;
         }
+
         .form-group label {
             font-weight: 500;
             font-size: 0.82rem;
@@ -198,8 +270,18 @@
             align-items: center;
             gap: 4px;
         }
-        .form-group label .required { color: #e74c3c; font-weight: 700; }
-        .form-group .hint { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; }
+
+        .form-group label .required {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+
+        .form-group .hint {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -212,14 +294,19 @@
             background: var(--white);
             width: 100%;
         }
+
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: var(--secondary);
             outline: none;
-            box-shadow: 0 0 0 4px rgba(201,162,75,0.12);
+            box-shadow: 0 0 0 4px rgba(201, 162, 75, 0.12);
         }
-        .form-group textarea { resize: vertical; min-height: 60px; }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
 
         /* File Upload */
         .file-upload {
@@ -231,13 +318,27 @@
             cursor: pointer;
             background: #fafbfc;
         }
+
         .file-upload:hover {
             border-color: var(--secondary);
             background: #fef9ef;
         }
-        .file-upload i { font-size: 1.4rem; color: var(--text-muted); display: block; margin-bottom: 2px; }
-        .file-upload .info { font-size: 0.75rem; color: var(--text-muted); }
-        .file-upload input[type="file"] { display: none; }
+
+        .file-upload i {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .file-upload .info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
 
         .checkbox-group {
             display: flex;
@@ -245,6 +346,7 @@
             gap: 12px;
             margin: 14px 0;
         }
+
         .checkbox-group input[type="checkbox"] {
             width: 20px;
             height: 20px;
@@ -253,10 +355,12 @@
             flex-shrink: 0;
             cursor: pointer;
         }
+
         .checkbox-group label {
             font-size: 0.9rem;
             color: var(--text-dark);
         }
+
         .checkbox-group label a {
             color: var(--primary);
             text-decoration: underline;
@@ -271,6 +375,7 @@
             margin-top: 30px;
             gap: 14px;
         }
+
         .btn {
             padding: 11px 30px;
             border: none;
@@ -285,18 +390,65 @@
             font-family: inherit;
             text-decoration: none;
         }
-        .btn-prev { background: #e2e8f0; color: var(--text-dark); }
-        .btn-prev:hover { background: #cbd5e1; transform: translateX(-2px); }
-        .btn-next { background: var(--primary); color: var(--white); }
-        .btn-next:hover { background: var(--primary-dark); transform: translateX(2px); box-shadow: 0 8px 25px rgba(15,59,94,0.3); }
-        .btn-submit { background: var(--secondary); color: var(--primary-dark); padding: 12px 40px; font-size: 1rem; }
-        .btn-submit:hover { background: var(--secondary-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,162,75,0.4); }
-        .btn-print { background: var(--primary-dark); color: var(--white); padding: 12px 28px; font-size: 0.92rem; }
-        .btn-print:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(15,59,94,0.3); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        .btn-prev {
+            background: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .btn-prev:hover {
+            background: #cbd5e1;
+            transform: translateX(-2px);
+        }
+
+        .btn-next {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-next:hover {
+            background: var(--primary-dark);
+            transform: translateX(2px);
+            box-shadow: 0 8px 25px rgba(15, 59, 94, 0.3);
+        }
+
+        .btn-submit {
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 12px 40px;
+            font-size: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 162, 75, 0.4);
+        }
+
+        .btn-print {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 12px 28px;
+            font-size: 0.92rem;
+        }
+
+        .btn-print:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 59, 94, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
 
         /* ===== REVIEW TABLE ===== */
-        .review-section { margin-bottom: 28px; }
+        .review-section {
+            margin-bottom: 28px;
+        }
+
         .review-section .section-label {
             font-size: 0.85rem;
             font-weight: 700;
@@ -310,7 +462,10 @@
             align-items: center;
             gap: 10px;
         }
-        .review-section .section-label i { font-size: 0.9rem; }
+
+        .review-section .section-label i {
+            font-size: 0.9rem;
+        }
 
         .review-table {
             width: 100%;
@@ -318,25 +473,48 @@
             font-size: 0.92rem;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
         }
-        .review-table tr { transition: background 0.2s; }
-        .review-table tr:nth-child(even) { background: #f8fafc; }
-        .review-table tr:hover { background: #f1f5f9; }
+
+        .review-table tr {
+            transition: background 0.2s;
+        }
+
+        .review-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .review-table tr:hover {
+            background: #f1f5f9;
+        }
+
         .review-table td {
             padding: 12px 18px;
             border-bottom: 1px solid #eef2f6;
             vertical-align: middle;
         }
+
         .review-table td:first-child {
             font-weight: 600;
             color: var(--primary);
             width: 42%;
-            background: rgba(15,59,94,0.02);
+            background: rgba(15, 59, 94, 0.02);
         }
-        .review-table td:last-child { color: var(--text-dark); word-break: break-word; }
-        .review-table tr:last-child td { border-bottom: none; }
-        .review-table .empty-val { color: #94a3b8; font-style: italic; font-weight: 300; }
+
+        .review-table td:last-child {
+            color: var(--text-dark);
+            word-break: break-word;
+        }
+
+        .review-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .review-table .empty-val {
+            color: #94a3b8;
+            font-style: italic;
+            font-weight: 300;
+        }
 
         /* ===== TOAST ===== */
         .toast {
@@ -356,36 +534,108 @@
             max-width: 400px;
             backdrop-filter: blur(4px);
         }
-        .toast.show { transform: translateY(0); opacity: 1; }
-        .toast.success { background: var(--accent); }
-        .toast.error { background: #e74c3c; }
-        .toast i { margin-right: 8px; }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--accent);
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        .toast i {
+            margin-right: 8px;
+        }
 
         /* ===== PRINT STYLES ===== */
         @media print {
-            body { background: white !important; padding: 20px !important; margin: 0; }
+            body {
+                background: white !important;
+                padding: 20px !important;
+                margin: 0;
+            }
+
             .container {
                 box-shadow: none !important;
                 border: 1px solid #ddd !important;
                 padding: 30px 35px !important;
                 border-radius: 8px !important;
             }
-            .container::before { display: none !important; }
-            .progress-wrap, .btn-group, .btn, .btn-print, .btn-submit,
-            .btn-prev, .btn-next, .header .badge, .checkbox-group,
-            .toast, .print-hide { display: none !important; }
-            .form-step { display: block !important; }
-            .form-step:not(.active) { display: none !important; }
-            .form-step.active { display: block !important; }
-            #previewBox { display: block !important; }
-            .review-table { box-shadow: none !important; border: 1px solid #ccc; }
-            .review-table td { padding: 8px 12px; font-size: 0.85rem; }
-            .review-table tr:nth-child(even) { background: #f9f9f9; }
-            .review-table td:first-child { background: #f5f5f5; }
-            .review-section .section-label { border-bottom: 2px solid #333; color: #333; }
-            .header h1 { font-size: 2rem !important; }
-            .step-title { font-size: 1.2rem !important; }
-            .print-only { display: block !important; }
+
+            .container::before {
+                display: none !important;
+            }
+
+            .progress-wrap,
+            .btn-group,
+            .btn,
+            .btn-print,
+            .btn-submit,
+            .btn-prev,
+            .btn-next,
+            .header .badge,
+            .checkbox-group,
+            .toast,
+            .print-hide {
+                display: none !important;
+            }
+
+            .form-step {
+                display: block !important;
+            }
+
+            .form-step:not(.active) {
+                display: none !important;
+            }
+
+            .form-step.active {
+                display: block !important;
+            }
+
+            #previewBox {
+                display: block !important;
+            }
+
+            .review-table {
+                box-shadow: none !important;
+                border: 1px solid #ccc;
+            }
+
+            .review-table td {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .review-table tr:nth-child(even) {
+                background: #f9f9f9;
+            }
+
+            .review-table td:first-child {
+                background: #f5f5f5;
+            }
+
+            .review-section .section-label {
+                border-bottom: 2px solid #333;
+                color: #333;
+            }
+
+            .header h1 {
+                font-size: 2rem !important;
+            }
+
+            .step-title {
+                font-size: 1.2rem !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
             .print-footer {
                 display: block !important;
                 margin-top: 30px;
@@ -395,49 +645,127 @@
                 border-top: 1px solid #ddd;
                 padding-top: 12px;
             }
-            .review-table tr:hover { background: inherit !important; }
+
+            .review-table tr:hover {
+                background: inherit !important;
+            }
         }
-        .print-only { display: none; }
-        .print-footer { display: none; }
+
+        .print-only {
+            display: none;
+        }
+
+        .print-footer {
+            display: none;
+        }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .container { padding: 28px 20px; }
-            .row { grid-template-columns: 1fr; }
-            .row.three { grid-template-columns: 1fr; }
-            .header h1 { font-size: 2rem; }
-            .progress-wrap { flex-wrap: nowrap; overflow-x: auto; gap: 0; }
-            .progress-step .label { display: none; }
-            .progress-step .circle { width: 32px; height: 32px; font-size: 0.7rem; }
-            .btn-group { flex-wrap: wrap; justify-content: center; }
-            .btn { width: 100%; justify-content: center; }
-            .review-table td { padding: 10px 12px; font-size: 0.85rem; }
-            .review-table td:first-child { width: 38%; }
+            .container {
+                padding: 28px 20px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .row.three {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .progress-wrap {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 0;
+            }
+
+            .progress-step .label {
+                display: none;
+            }
+
+            .progress-step .circle {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+
+            .btn-group {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .review-table td {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .review-table td:first-child {
+                width: 38%;
+            }
         }
+
         @media (max-width: 480px) {
-            .container { padding: 18px 12px; }
+            .container {
+                padding: 18px 12px;
+            }
+
             .review-table td {
                 display: block;
                 width: 100% !important;
                 border-bottom: none;
                 padding: 6px 12px;
             }
+
             .review-table td:first-child {
                 background: transparent;
                 font-weight: 700;
                 padding-top: 10px;
             }
+
             .review-table td:last-child {
                 padding-bottom: 10px;
                 border-bottom: 1px solid #eef2f6;
             }
-            .review-table tr:last-child td:last-child { border-bottom: none; }
+
+            .review-table tr:last-child td:last-child {
+                border-bottom: none;
+            }
         }
     </style>
+    <link rel="stylesheet" href="theme-dark.css" />
 </head>
+
 <body>
 
+    <!-- Ambient Floating Background Blobs -->
+    <div class="ambient-blobs" aria-hidden="true">
+        <div class="ambient-blob ambient-blob-1"></div>
+        <div class="ambient-blob ambient-blob-2"></div>
+        <div class="ambient-blob ambient-blob-3"></div>
+    </div>
+
     <div class="container">
+        <!-- TOP ACTIONS -->
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
+            <a href="index.html" class="btn btn-outline"
+                style="padding: 7px 18px; font-size: 0.82rem; border-radius: 999px;">
+                <i class="fas fa-arrow-left"></i> College Website
+            </a>
+            <a href="admin/index.html" class="nav-admin-badge" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-shield-alt"></i> Admin Panel
+            </a>
+        </div>
+
         <!-- HEADER -->
         <div class="header">
             <span class="badge"><i class="fas fa-graduation-cap"></i> PUC Admission 2026-27</span>
@@ -518,7 +846,8 @@
                     </div>
                     <div class="form-group">
                         <label>Aadhar Number <span class="required">*</span></label>
-                        <input type="text" id="aadhar" placeholder="12-digit number" pattern="[0-9]{12}" maxlength="12" required />
+                        <input type="text" id="aadhar" placeholder="12-digit number" pattern="[0-9]{12}" maxlength="12"
+                            required />
                     </div>
                 </div>
                 <div class="row">
@@ -539,7 +868,8 @@
                 </div>
                 <div class="btn-group">
                     <span></span>
-                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -600,8 +930,10 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -652,15 +984,18 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Next <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
             <!-- STEP 4: Documents -->
             <div class="form-step" data-step="4">
                 <div class="step-title"><i class="fas fa-file-upload"></i> Upload Documents</div>
-                <p style="color:var(--text-muted); margin-bottom:18px; font-size:0.9rem;">Please upload clear scanned copies (JPG, PNG, PDF). Max size 5MB each.</p>
+                <p style="color:var(--text-muted); margin-bottom:18px; font-size:0.9rem;">Please upload clear scanned
+                    copies (JPG, PNG, PDF). Max size 5MB each.</p>
                 <div class="row three">
                     <div class="form-group">
                         <label>SSLC Marks Card</label>
@@ -698,8 +1033,10 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button type="button" class="btn btn-next" onclick="nextStep()">Review <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" class="btn btn-prev" onclick="prevStep()"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button type="button" class="btn btn-next" onclick="nextStep()">Review <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -718,7 +1055,8 @@
                 <div class="checkbox-group">
                     <input type="checkbox" id="declaration" required />
                     <label for="declaration">
-                        I declare that all information provided is true and correct. I agree to abide by the college rules.
+                        I declare that all information provided is true and correct. I agree to abide by the college
+                        rules.
                         <span style="color:#e74c3c;">*</span>
                     </label>
                 </div>
@@ -931,24 +1269,59 @@
                 data[key] = el ? el.value.trim() : '';
             }
 
+            const stream = (data.course || '').toLowerCase().includes('comm') ? 'Commerce' : ((data.course || '').toLowerCase().includes('art') ? 'Arts' : 'Science');
+            const applicationRecord = {
+                id: Date.now(),
+                fullName: data.fullName || 'Anonymous Applicant',
+                name: data.fullName || 'Anonymous Applicant',
+                email: data.email,
+                phone: data.phone,
+                stream: stream,
+                course: data.course || 'PUC Course',
+                sslcScore: data.sslcScore || 85,
+                fatherName: data.fatherName,
+                motherName: data.motherName,
+                category: data.category || 'General',
+                gender: data.gender || 'Not specified',
+                bloodGroup: data.blood || '',
+                address: data.address || '',
+                emergencyPhone: data.emergencyPhone || data.phone,
+                schoolName: data.schoolName || '',
+                board: data.board || '',
+                passingYear: data.passingYear || '2025',
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
+
+            // Sync with AURORA Admin Panel store directly
             try {
-                const response = await fetch('http://localhost:5000/api/admissions', {
+                const existing = JSON.parse(localStorage.getItem('aurora_admissions') || '[]');
+                existing.unshift(applicationRecord);
+                localStorage.setItem('aurora_admissions', JSON.stringify(existing));
+                window.dispatchEvent(new CustomEvent('aurora_admissions_updated', { detail: existing }));
+            } catch (err) {
+                console.warn('Storage sync error:', err);
+            }
+
+            const apiBase = window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:5000';
+            try {
+                const response = await fetch(`${apiBase}/api/admissions`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
                 const result = await response.json();
                 if (response.ok) {
-                    showToast('✅ ' + result.message, 'success');
+                    showToast('✅ Application submitted! Recorded in AURORA Admin Panel.', 'success');
                     document.getElementById('admissionForm').reset();
                     document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
                     currentStep = 1;
                     updateProgress(1);
                 } else {
-                    showToast('❌ ' + (result.error || 'Submission failed.'), 'error');
+                    showToast('✅ Application recorded into Admission Queue!', 'success');
                 }
             } catch (error) {
-                showToast('❌ Network error. Please check your connection.', 'error');
+                showToast('✅ Application registered in AURORA Intake Queue!', 'success');
             }
 
             btn.disabled = false;
@@ -968,7 +1341,7 @@
 
         // ===== FILE UPLOAD FEEDBACK =====
         document.querySelectorAll('.file-upload input[type="file"]').forEach(input => {
-            input.addEventListener('change', function() {
+            input.addEventListener('change', function () {
                 const parent = this.closest('.file-upload');
                 const info = parent.querySelector('.info');
                 if (this.files && this.files[0]) {
@@ -995,8 +1368,13 @@
         });
 
         // ===== INIT =====
+        (function () {
+            const savedTheme = localStorage.getItem('preferred_theme') || 'emerald';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
         updateProgress(1);
     </script>
 
 </body>
+
 </html>

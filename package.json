@@ -1,4 +1,12 @@
 {
+  "name": "website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "health": "curl http://localhost:5000/api/health"
+  },
   "dependencies": {
     "@supabase/server": "^1.4.1",
     "@supabase/supabase-js": "^2.110.8"

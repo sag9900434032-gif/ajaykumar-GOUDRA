@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AKRDevi · ERP + 20 Themes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <style>
+        /* ===== THEME VARIABLES (20 themes) ===== */
+        :root {
+            --primary: #1a2a6c;
+            --primary-light: #2d4a8e;
+            --primary-dark: #0d1a4a;
+            --secondary: #c9a24b;
+            --secondary-light: #e8c87a;
+            --accent: #00b894;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+            --bg: #f0f2f8;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #8a8aaa;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-lg: 0 16px 64px rgba(0,0,0,0.10);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --header-height: 72px;
+            --blur: blur(20px);
+            --sidebar-bg: rgba(13, 26, 74, 0.95);
+            --sidebar-text: rgba(255, 255, 255, 0.6);
+            --sidebar-hover: rgba(255, 255, 255, 0.06);
+            --sidebar-active: rgba(201, 162, 75, 0.15);
+            --badge-bg: var(--secondary);
+            --badge-color: var(--primary-dark);
+        }
+
+        /* ----- THEME CLASSES (20 themes) ----- */
+        body.theme-classic {
+            --primary: #1a2a6c; --primary-light: #2d4a8e; --primary-dark: #0d1a4a;
+            --secondary: #c9a24b; --secondary-light: #e8c87a; --accent: #00b894;
+            --bg: #f0f2f8; --text-primary: #1a1a2e; --text-secondary: #4a4a6a; --text-muted: #8a8aaa;
+            --sidebar-bg: rgba(13, 26, 74, 0.95); --badge-bg: #c9a24b; --badge-color: #0d1a4a;
+        }
+        body.theme-royal {
+            --primary: #7a1f2d; --primary-light: #a83244; --primary-dark: #4d1220;
+            --secondary: #d4a84b; --secondary-light: #e8c87a; --accent: #f1c40f;
+            --bg: #f8f4f0; --text-primary: #2c1a1a; --text-secondary: #7a5a5a; --text-muted: #b8a090;
+            --sidebar-bg: rgba(77, 18, 32, 0.95); --badge-bg: #d4a84b; --badge-color: #4d1220;
+        }
+        body.theme-nature {
+            --primary: #2d6a4f; --primary-light: #40916c; --primary-dark: #1b4332;
+            --secondary: #d4a373; --secondary-light: #e9c9a9; --accent: #52b788;
+            --bg: #f6f8f4; --text-primary: #2d3a2d; --text-secondary: #5a6a5a; --text-muted: #8a9a8a;
+            --sidebar-bg: rgba(27, 67, 50, 0.95); --badge-bg: #d4a373; --badge-color: #1b4332;
+        }
+        body.theme-dark {
+            --primary: #8b5cf6; --primary-light: #a78bfa; --primary-dark: #6d28d9;
+            --secondary: #fbbf24; --secondary-light: #fcd34d; --accent: #34d399;
+            --danger: #f87171; --warning: #fbbf24; --info: #60a5fa;
+            --bg: #0d0d1a; --card-bg: rgba(26, 26, 46, 0.85);
+            --text-primary: #eeeef8; --text-secondary: #b8b8d0; --text-muted: #7a7a9a;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4); --shadow-lg: 0 16px 64px rgba(0,0,0,0.5);
+            --sidebar-bg: rgba(6, 6, 12, 0.95); --badge-bg: #fbbf24; --badge-color: #0d0d1a;
+        }
+        body.theme-mint {
+            --primary: #0d9488; --primary-light: #14b8a6; --primary-dark: #0f766e;
+            --secondary: #f59e0b; --secondary-light: #fbbf24; --accent: #10b981;
+            --bg: #ecfdf5; --card-bg: rgba(255, 255, 255, 0.85);
+            --text-primary: #064e3b; --text-secondary: #047857; --text-muted: #6b9a8a;
+            --sidebar-bg: rgba(6, 78, 59, 0.95); --badge-bg: #f59e0b; --badge-color: #064e3b;
+        }
+        body.theme-coral {
+            --primary: #e11d48; --primary-light: #fb7185; --primary-dark: #be123c;
+            --secondary: #fcd34d; --secondary-light: #fde68a; --accent: #f59e0b;
+            --bg: #fff1f2; --text-primary: #881337; --text-secondary: #9f1239; --text-muted: #c0848a;
+            --sidebar-bg: rgba(190, 18, 60, 0.95); --badge-bg: #fcd34d; --badge-color: #881337;
+        }
+        body.theme-azure {
+            --primary: #0369a1; --primary-light: #38bdf8; --primary-dark: #075985;
+            --secondary: #f97316; --secondary-light: #fb923c; --accent: #22d3ee;
+            --bg: #f0f9ff; --text-primary: #082f49; --text-secondary: #0c4a6e; --text-muted: #7aa9c0;
+            --sidebar-bg: rgba(7, 89, 133, 0.95); --badge-bg: #f97316; --badge-color: #082f49;
+        }
+        body.theme-lavender {
+            --primary: #6d28d9; --primary-light: #8b5cf6; --primary-dark: #4c1d95;
+            --secondary: #f472b6; --secondary-light: #f9a8d4; --accent: #34d399;
+            --bg: #faf5ff; --text-primary: #2e1065; --text-secondary: #5b21b6; --text-muted: #b0a0c0;
+            --sidebar-bg: rgba(76, 29, 149, 0.95); --badge-bg: #f472b6; --badge-color: #2e1065;
+        }
+        body.theme-forest {
+            --primary: #14532d; --primary-light: #22c55e; --primary-dark: #0f3d1e;
+            --secondary: #f59e0b; --secondary-light: #fbbf24; --accent: #10b981;
+            --bg: #f0fdf4; --text-primary: #052e16; --text-secondary: #166534; --text-muted: #7a9a7a;
+            --sidebar-bg: rgba(15, 61, 30, 0.95); --badge-bg: #f59e0b; --badge-color: #052e16;
+        }
+        body.theme-rose {
+            --primary: #9f1239; --primary-light: #fb7185; --primary-dark: #4c0519;
+            --secondary: #fcd34d; --secondary-light: #fde68a; --accent: #f59e0b;
+            --bg: #fff1f2; --text-primary: #4c0519; --text-secondary: #9f1239; --text-muted: #c0848a;
+            --sidebar-bg: rgba(76, 5, 25, 0.95); --badge-bg: #fcd34d; --badge-color: #4c0519;
+        }
+        body.theme-ocean {
+            --primary: #0c4a6e; --primary-light: #38bdf8; --primary-dark: #082f49;
+            --secondary: #fcd34d; --secondary-light: #fde68a; --accent: #22d3ee;
+            --bg: #f0f9ff; --text-primary: #082f49; --text-secondary: #0c4a6e; --text-muted: #7aa9c0;
+            --sidebar-bg: rgba(8, 47, 73, 0.95); --badge-bg: #fcd34d; --badge-color: #082f49;
+        }
+        body.theme-sunset {
+            --primary: #9d174d; --primary-light: #f472b6; --primary-dark: #4c0519;
+            --secondary: #f97316; --secondary-light: #fb923c; --accent: #f59e0b;
+            --bg: #fff7ed; --text-primary: #4c0519; --text-secondary: #9d174d; --text-muted: #c0848a;
+            --sidebar-bg: rgba(76, 5, 25, 0.95); --badge-bg: #f97316; --badge-color: #4c0519;
+        }
+
+        /* ----- 8 NEW THEMES ----- */
+        body.theme-midnight {
+            --primary: #0a1628; --primary-light: #1a2a4a; --primary-dark: #050d1a;
+            --secondary: #4fc3f7; --secondary-light: #81d4fa; --accent: #00bcd4;
+            --bg: #0d1a2e; --card-bg: rgba(10, 22, 40, 0.85);
+            --text-primary: #e3f0ff; --text-secondary: #8ab4d6; --text-muted: #4a6a8a;
+            --shadow: 0 8px 32px rgba(0,0,0,0.5); --shadow-lg: 0 16px 64px rgba(0,0,0,0.6);
+            --sidebar-bg: rgba(5, 13, 26, 0.97); --badge-bg: #4fc3f7; --badge-color: #050d1a;
+        }
+        body.theme-blush {
+            --primary: #e8b4b8; --primary-light: #f2c8cc; --primary-dark: #d49096;
+            --secondary: #c9a24b; --secondary-light: #e8c87a; --accent: #f4a460;
+            --bg: #fdf8f7; --text-primary: #4a2a2e; --text-secondary: #7a5a5e; --text-muted: #b8a0a2;
+            --card-bg: rgba(255, 248, 247, 0.9);
+            --sidebar-bg: rgba(74, 42, 46, 0.92); --badge-bg: #c9a24b; --badge-color: #4a2a2e;
+        }
+        body.theme-sage {
+            --primary: #4a7c59; --primary-light: #6a9c79; --primary-dark: #2a5c39;
+            --secondary: #d4a373; --secondary-light: #e9c9a9; --accent: #8a9a6a;
+            --bg: #f4f8f2; --text-primary: #1a2a1a; --text-secondary: #4a5a4a; --text-muted: #8a9a8a;
+            --sidebar-bg: rgba(42, 92, 57, 0.95); --badge-bg: #d4a373; --badge-color: #1a2a1a;
+        }
+        body.theme-tropical {
+            --primary: #00695c; --primary-light: #00897b; --primary-dark: #004d40;
+            --secondary: #ff6f00; --secondary-light: #ff8f00; --accent: #00bfa5;
+            --bg: #e8f5e9; --text-primary: #1a2a1a; --text-secondary: #4a6a4a; --text-muted: #8aaa8a;
+            --sidebar-bg: rgba(0, 77, 64, 0.95); --badge-bg: #ff6f00; --badge-color: #e8f5e9;
+        }
+        body.theme-indigo {
+            --primary: #283593; --primary-light: #5c6bc0; --primary-dark: #1a237e;
+            --secondary: #ffab00; --secondary-light: #ffc400; --accent: #ff6f00;
+            --bg: #e8eaf6; --text-primary: #1a1a3e; --text-secondary: #4a4a6a; --text-muted: #8a8aaa;
+            --sidebar-bg: rgba(26, 35, 126, 0.95); --badge-bg: #ffab00; --badge-color: #1a1a3e;
+        }
+        body.theme-plum {
+            --primary: #4a148c; --primary-light: #7b1fa2; --primary-dark: #2a0a5c;
+            --secondary: #fdd835; --secondary-light: #fde68a; --accent: #f48fb1;
+            --bg: #f3e5f5; --text-primary: #2a0a3e; --text-secondary: #6a3a7a; --text-muted: #aa8aba;
+            --sidebar-bg: rgba(42, 10, 92, 0.95); --badge-bg: #fdd835; --badge-color: #2a0a3e;
+        }
+        body.theme-slate {
+            --primary: #37474f; --primary-light: #607d8b; --primary-dark: #1a2a32;
+            --secondary: #90a4ae; --secondary-light: #b0bec5; --accent: #4dd0e1;
+            --bg: #eceff1; --text-primary: #1a1a2a; --text-secondary: #4a5a6a; --text-muted: #8a9aaa;
+            --sidebar-bg: rgba(26, 42, 50, 0.95); --badge-bg: #90a4ae; --badge-color: #1a1a2a;
+        }
+        body.theme-cherry {
+            --primary: #c62828; --primary-light: #ef5350; --primary-dark: #8e0000;
+            --secondary: #ffd54f; --secondary-light: #ffe082; --accent: #ff8a65;
+            --bg: #fff5f5; --text-primary: #4a0a0a; --text-secondary: #7a3a3a; --text-muted: #ba8a8a;
+            --sidebar-bg: rgba(142, 0, 0, 0.95); --badge-bg: #ffd54f; --badge-color: #4a0a0a;
+        }
+
+        /* ============================================================
+           REST OF THE CSS (theme-aware)
+           ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            transition: background 0.5s, color 0.5s;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; font-family: inherit; }
+
+        .sidebar {
+            width: 280px; height: 100vh; background: var(--sidebar-bg);
+            backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            position: fixed; left: 0; top: 0; z-index: 1000;
+            display: flex; flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            overflow-y: auto; overflow-x: hidden;
+        }
+        .sidebar-brand {
+            padding: 24px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .sidebar-brand .logo-icon {
+            width: 44px; height: 44px; background: var(--secondary);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); flex-shrink: 0;
+        }
+        .sidebar-brand .brand-text { color: white; }
+        .sidebar-brand .brand-text h2 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+        .sidebar-brand .brand-text h2 span { color: var(--secondary); }
+        .sidebar-brand .brand-text small { font-size: 0.6rem; opacity: 0.4; letter-spacing: 1px; text-transform: uppercase; }
+
+        .sidebar-nav { flex: 1; padding: 12px 10px 16px; }
+        .sidebar-nav .nav-label {
+            color: rgba(255,255,255,0.2); font-size: 0.6rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 12px 6px;
+        }
+        .sidebar-nav .nav-item {
+            display: flex; align-items: center; gap: 12px; padding: 9px 14px;
+            border-radius: 10px; color: rgba(255,255,255,0.5); font-weight: 500;
+            font-size: 0.85rem; transition: all var(--transition); cursor: pointer;
+            margin-bottom: 2px; position: relative;
+        }
+        .sidebar-nav .nav-item:hover { background: var(--sidebar-hover); color: white; transform: translateX(4px); }
+        .sidebar-nav .nav-item.active {
+            background: var(--sidebar-active); color: white; border-left: 3px solid var(--secondary);
+        }
+        .sidebar-nav .nav-item i { width: 20px; text-align: center; font-size: 0.95rem; flex-shrink: 0; }
+        .sidebar-nav .nav-item .badge {
+            margin-left: auto; background: var(--badge-bg); color: var(--badge-color);
+            padding: 0 8px; border-radius: 50px; font-size: 0.6rem; font-weight: 600;
+        }
+        .sidebar-nav .nav-item .badge.danger { background: var(--danger); color: white; }
+        .sidebar-nav .nav-item .badge.success { background: var(--accent); color: white; }
+
+        .sidebar-footer { padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .sidebar-footer .user-info { display: flex; align-items: center; gap: 12px; }
+        .sidebar-footer .user-info .avatar {
+            width: 38px; height: 38px; border-radius: 50%; background: var(--secondary);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; color: var(--primary-dark); font-size: 0.9rem;
+        }
+        .sidebar-footer .user-info .user-name { color: white; font-size: 0.85rem; font-weight: 600; }
+        .sidebar-footer .user-info .user-role { color: rgba(255,255,255,0.3); font-size: 0.65rem; }
+        .sidebar-footer .logout-btn {
+            margin-top: 10px; width: 100%; padding: 8px; border: none; border-radius: 10px;
+            background: rgba(231,76,60,0.15); color: var(--danger); font-weight: 500;
+            font-size: 0.8rem; transition: var(--transition);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .sidebar-footer .logout-btn:hover { background: rgba(231,76,60,0.25); }
+
+        .main-content { margin-left: 280px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+        .top-header {
+            height: var(--header-height); background: var(--card-bg);
+            backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+            border-bottom: 1px solid var(--card-border); padding: 0 28px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100; transition: all 0.4s;
+        }
+        .top-header .left { display: flex; align-items: center; gap: 16px; }
+        .top-header .left .hamburger {
+            display: none; background: none; border: none; font-size: 1.3rem;
+            color: var(--text-primary); padding: 4px;
+        }
+        .top-header .left .page-title h2 { font-size: 1.2rem; font-weight: 700; }
+        .top-header .left .page-title small { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+        .top-header .right { display: flex; align-items: center; gap: 14px; }
+        .top-header .right .theme-toggle {
+            background: var(--bg); border: none; width: 38px; height: 38px; border-radius: 50%;
+            font-size: 1rem; color: var(--text-secondary); transition: var(--transition);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .top-header .right .theme-toggle:hover { background: var(--secondary); color: white; }
+        .top-header .right .notification {
+            position: relative; background: var(--bg); border: none; width: 38px; height: 38px;
+            border-radius: 50%; font-size: 1rem; color: var(--text-secondary);
+            transition: var(--transition); display: flex; align-items: center; justify-content: center;
+        }
+        .top-header .right .notification:hover { background: var(--secondary); color: white; }
+        .top-header .right .notification .dot {
+            position: absolute; top: 8px; right: 8px; width: 8px; height: 8px;
+            background: var(--danger); border-radius: 50%; border: 2px solid var(--card-bg);
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } }
+        .top-header .right .admin-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition);
+        }
+        .top-header .right .admin-avatar:hover { transform: scale(1.05); box-shadow: 0 0 0 3px var(--secondary); }
+        .top-header .right .global-search {
+            display: flex; align-items: center; background: var(--bg); border-radius: 50px;
+            padding: 6px 16px 6px 12px; border: 1px solid transparent; transition: var(--transition);
+        }
+        .top-header .right .global-search:focus-within {
+            border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(201,162,75,0.1);
+        }
+        .top-header .right .global-search i { color: var(--text-muted); font-size: 0.85rem; }
+        .top-header .right .global-search input {
+            border: none; background: transparent; outline: none; font-family: inherit;
+            font-size: 0.85rem; padding: 4px 8px; color: var(--text-primary); width: 160px;
+        }
+
+        .page-content { padding: 28px 32px; flex: 1; }
+
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr));
+            gap: 18px; margin-bottom: 28px;
+        }
+        .stat-card {
+            background: var(--card-bg); backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur); border: 1px solid var(--card-border);
+            border-radius: var(--radius); padding: 18px 22px; box-shadow: var(--shadow);
+            transition: all var(--transition); display: flex; justify-content: space-between; align-items: center;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .stat-card .stat-info h4 { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .stat-info h2 { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-top: 2px; }
+        .stat-card .stat-info .trend { font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .stat-card .stat-info .trend.up { color: var(--accent); }
+        .stat-card .stat-info .trend.down { color: var(--danger); }
+        .stat-card .stat-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            color: white; flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .stat-card .stat-icon.blue { background: linear-gradient(135deg, #3498db, #60a5fa); }
+        .stat-card .stat-icon.green { background: linear-gradient(135deg, #00b894, #34d399); }
+        .stat-card .stat-icon.orange { background: linear-gradient(135deg, #f39c12, #fbbf24); }
+        .stat-card .stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .stat-card .stat-icon.red { background: linear-gradient(135deg, #e74c3c, #f87171); }
+        .stat-card .stat-icon.gold { background: linear-gradient(135deg, #c9a24b, #fcd34d); }
+
+        .section-card {
+            background: var(--card-bg); backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur); border: 1px solid var(--card-border);
+            border-radius: var(--radius); padding: 22px 26px; margin-bottom: 24px;
+            box-shadow: var(--shadow); transition: all var(--transition);
+        }
+        .section-card:hover { box-shadow: var(--shadow-lg); }
+        .section-card .section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 18px; flex-wrap: wrap; gap: 12px;
+        }
+        .section-card .section-header h3 { font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .section-card .section-header h3 i { color: var(--secondary); }
+        .section-card .section-header .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 8px 18px; border-radius: var(--radius-sm); font-weight: 500;
+            font-size: 0.82rem; border: none; transition: all var(--transition);
+            display: inline-flex; align-items: center; gap: 6px; font-family: inherit;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,42,108,0.3); }
+        .btn-secondary { background: var(--secondary); color: var(--primary-dark); }
+        .btn-secondary:hover { background: var(--secondary-light); transform: translateY(-2px); }
+        .btn-success { background: var(--accent); color: white; }
+        .btn-success:hover { background: #00a381; transform: translateY(-2px); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #c0392b; transform: translateY(-2px); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { background: #d68910; transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); }
+        .btn-outline:hover { background: var(--bg); border-color: var(--text-primary); color: var(--text-primary); }
+        .btn-sm { padding: 4px 12px; font-size: 0.7rem; }
+        .btn-lg { padding: 12px 32px; font-size: 1rem; }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        table thead { background: var(--bg); border-radius: var(--radius-sm); }
+        table th {
+            padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text-muted);
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--card-border);
+        }
+        table td { padding: 12px 14px; border-bottom: 1px solid var(--card-border); vertical-align: middle; color: var(--text-secondary); }
+        table tr:hover td { background: var(--bg); }
+        table .status {
+            padding: 3px 12px; border-radius: 50px; font-size: 0.65rem; font-weight: 600; display: inline-block;
+        }
+        table .status.active { background: #d1fae5; color: #065f46; }
+        table .status.inactive { background: #fee2e2; color: #991b1b; }
+        table .status.pending { background: #fef3c7; color: #92400e; }
+        table .status.approved { background: #d1fae5; color: #065f46; }
+        table .status.rejected { background: #fee2e2; color: #991b1b; }
+        table .status.completed { background: #e0e7ff; color: #3730a3; }
+        table .status.on-leave { background: #fef3c7; color: #92400e; }
+        table .avatar-sm {
+            width: 30px; height: 30px; border-radius: 50%; background: var(--primary);
+            color: white; display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.65rem; font-weight: 600; margin-right: 8px;
+        }
+        table .stream-badge { padding: 2px 10px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; }
+        table .stream-badge.science { background: #dbeafe; color: #1e40af; }
+        table .stream-badge.commerce { background: #fef3c7; color: #92400e; }
+        table .stream-badge.arts { background: #fce4ec; color: #c62828; }
+        table .action-btns { display: flex; gap: 4px; }
+        table .action-btns button {
+            background: none; border: none; cursor: pointer; padding: 4px 8px;
+            border-radius: 6px; transition: var(--transition); font-size: 0.8rem;
+        }
+        table .action-btns .view-btn { color: var(--info); }
+        table .action-btns .view-btn:hover { background: #dbeafe; }
+        table .action-btns .edit-btn { color: var(--warning); }
+        table .action-btns .edit-btn:hover { background: #fef3c7; }
+        table .action-btns .delete-btn { color: var(--danger); }
+        table .action-btns .delete-btn:hover { background: #fee2e2; }
+        table .action-btns .approve-btn { color: var(--accent); }
+        table .action-btns .approve-btn:hover { background: #d1fae5; }
+        table .action-btns .reject-btn { color: var(--danger); }
+        table .action-btns .reject-btn:hover { background: #fee2e2; }
+
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 2000;
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--card-bg); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+            border: 1px solid var(--card-border); border-radius: var(--radius);
+            padding: 32px 36px; max-width: 680px; width: 100%; max-height: 90vh;
+            overflow-y: auto; box-shadow: var(--shadow-lg);
+            animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal .modal-header h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+        .modal .modal-header h3 i { color: var(--secondary); }
+        .modal .modal-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-muted); transition: var(--transition); }
+        .modal .modal-close:hover { color: var(--danger); transform: rotate(90deg); }
+        .modal .form-group { margin-bottom: 14px; }
+        .modal .form-group label { display: block; font-weight: 500; font-size: 0.82rem; margin-bottom: 4px; color: var(--text-secondary); }
+        .modal .form-group label .required { color: var(--danger); }
+        .modal .form-group input, .modal .form-group select, .modal .form-group textarea {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm); font-family: inherit; font-size: 0.92rem;
+            transition: var(--transition); background: var(--bg); color: var(--text-primary);
+        }
+        .modal .form-group input:focus, .modal .form-group select:focus, .modal .form-group textarea:focus {
+            border-color: var(--secondary); outline: none; box-shadow: 0 0 0 3px rgba(201,162,75,0.1);
+        }
+        .modal .form-group textarea { resize: vertical; min-height: 60px; }
+        .modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .modal .btn-group { display: flex; gap: 12px; margin-top: 8px; justify-content: flex-end; }
+
+        .page { display: none; animation: fadePage 0.45s cubic-bezier(0.34,1.56,0.64,1); }
+        .page.active { display: block; }
+        @keyframes fadePage { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .toast {
+            position: fixed; bottom: 30px; right: 30px; padding: 14px 24px;
+            border-radius: var(--radius); background: var(--card-bg);
+            backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+            border: 1px solid var(--card-border); color: var(--text-primary);
+            font-weight: 500; box-shadow: var(--shadow-lg);
+            transform: translateY(120px); opacity: 0;
+            transition: 0.5s cubic-bezier(0.34,1.56,0.64,1);
+            z-index: 9999; max-width: 420px; display: flex; align-items: center; gap: 10px;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-left: 4px solid var(--accent); }
+        .toast.error { border-left: 4px solid var(--danger); }
+        .toast.warning { border-left: 4px solid var(--warning); }
+
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 999; }
+        .sidebar-overlay.active { display: block; }
+
+        @media (max-width: 1024px) { .modal .form-row { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.active { display: block; }
+            .main-content { margin-left: 0; }
+            .top-header .left .hamburger { display: block; }
+            .top-header { padding: 0 16px; }
+            .top-header .left .page-title small { display: none; }
+            .top-header .right .global-search { display: none; }
+            .page-content { padding: 16px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .stat-card { padding: 14px 16px; }
+            .stat-card .stat-info h2 { font-size: 1.3rem; }
+            .stat-card .stat-icon { width: 36px; height: 36px; font-size: 1rem; }
+            .section-card { padding: 16px 18px; }
+            .section-card .section-header { flex-direction: column; align-items: stretch; }
+            .section-card .section-header .actions { flex-wrap: wrap; }
+            .section-card .section-header .actions .btn { flex: 1; justify-content: center; }
+            table { font-size: 0.78rem; }
+            table th, table td { padding: 8px 10px; }
+            .top-header .right .notification { display: none; }
+            .modal { padding: 20px 16px; margin: 16px; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .page-content { padding: 12px; }
+            .section-card { padding: 12px 14px; }
+            table .action-btns { flex-direction: column; gap: 4px; }
+            .toast { left: 16px; right: 16px; bottom: 16px; max-width: none; font-size: 0.85rem; }
+        }
+
+        .ai-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white;
+            padding: 4px 14px; border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(139,92,246,0.4); } 50% { box-shadow: 0 0 20px rgba(139,92,246,0.2); } }
+
+        .chart-container { position: relative; height: 240px; width: 100%; }
+        .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+        /* Design System Extras */
+        .color-swatch { display: flex; flex-direction: column; border-radius: var(--radius-sm); overflow: hidden; }
+        .color-swatch .swatch { height: 60px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+        .color-swatch .info { padding: 12px 14px; background: var(--card-bg); }
+        .color-swatch .info .name { font-weight: 600; font-size: 0.85rem; }
+        .color-swatch .info .hex { font-size: 0.75rem; color: var(--text-muted); font-family: 'Courier New', monospace; }
+
+        .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); gap: 12px; }
+        .icon-grid .icon-item {
+            display: flex; flex-direction: column; align-items: center; padding: 12px 8px;
+            background: var(--bg); border-radius: var(--radius-sm); transition: var(--transition);
+        }
+        .icon-grid .icon-item:hover { background: var(--secondary); color: white; transform: scale(1.05); }
+        .icon-grid .icon-item i { font-size: 1.6rem; }
+        .icon-grid .icon-item .icon-name { font-size: 0.55rem; margin-top: 4px; color: var(--text-muted); text-align: center; }
+
+        .illustration {
+            width: 100%; height: 120px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center; font-size: 3rem;
+            background: linear-gradient(135deg, var(--bg), var(--card-bg));
+            border: 1px solid rgba(0,0,0,0.04); position: relative; overflow: hidden;
+        }
+        .illustration .label {
+            position: absolute; bottom: 8px; right: 12px; font-size: 0.55rem;
+            color: var(--text-muted); background: var(--card-bg); padding: 2px 10px; border-radius: 50px;
+        }
+
+        .logo-preview {
+            display: flex; align-items: center; justify-content: center; gap: 40px;
+            flex-wrap: wrap; padding: 30px; background: var(--card-bg);
+            border-radius: var(--radius); box-shadow: var(--shadow);
+        }
+        .logo-preview .logo-item { text-align: center; }
+        .logo-preview .logo-item .logo-display {
+            font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; color: var(--primary);
+        }
+        .logo-preview .logo-item .logo-display span { color: var(--secondary); }
+        .logo-preview .logo-item .logo-display.dark {
+            color: white; background: var(--primary-dark); padding: 12px 20px; border-radius: var(--radius-sm);
+        }
+        .logo-preview .logo-item .label { font-size: 0.7rem; color: var(--text-muted); margin-top: 6px; }
+
+        .glass-preview {
+            background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius);
+            padding: 20px; box-shadow: var(--shadow-lg);
+        }
+
+        .type-sample { padding: 14px 18px; background: var(--card-bg); border-radius: var(--radius-sm); border-left: 4px solid var(--secondary); }
+        .type-sample .sample { font-family: 'Playfair Display', serif; font-weight: 700; }
+        .type-sample .sample.inter { font-family: 'Inter', sans-serif; }
+        .type-sample .meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; }
+
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; padding: 16px; background: var(--bg); border-radius: var(--radius-sm); }
+        .btn-demo {
+            padding: 10px 24px; border-radius: var(--radius-sm); font-weight: 600;
+            font-size: 0.85rem; border: none; transition: var(--transition); cursor: pointer; font-family: inherit;
+        }
+        .btn-demo-primary { background: var(--primary); color: white; }
+        .btn-demo-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-demo-secondary { background: var(--secondary); color: var(--primary-dark); }
+        .btn-demo-secondary:hover { background: var(--secondary-light); transform: translateY(-2px); }
+        .btn-demo-success { background: var(--accent); color: white; }
+        .btn-demo-success:hover { background: #00a381; transform: translateY(-2px); }
+        .btn-demo-danger { background: var(--danger); color: white; }
+        .btn-demo-danger:hover { background: #c0392b; transform: translateY(-2px); }
+        .btn-demo-outline { background: transparent; border: 2px solid var(--text-muted); color: var(--text-muted); }
+        .btn-demo-outline:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .btn-demo-glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-demo-glass:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+        .theme-selector-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .theme-selector-grid .theme-card {
+            padding: 14px; border-radius: var(--radius-sm); border: 2px solid var(--card-border);
+            text-align: center; cursor: pointer; transition: all var(--transition);
+            background: var(--card-bg);
+        }
+        .theme-selector-grid .theme-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--secondary); }
+        .theme-selector-grid .theme-card .theme-preview {
+            width: 100%; height: 36px; border-radius: 6px; margin-bottom: 6px;
+        }
+        .theme-selector-grid .theme-card .theme-name { font-size: 0.75rem; font-weight: 500; }
+        .theme-selector-grid .theme-card.active-theme {
+            border-color: var(--secondary); background: rgba(201,162,75,0.08);
+        }
+        .theme-selector-grid .theme-card .theme-count { font-size: 0.55rem; color: var(--text-muted); }
+
+        .demo-banner {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            color: var(--primary-dark); text-align: center; padding: 8px 16px;
+            font-size: 0.8rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
+            gap: 12px; flex-wrap: wrap;
+        }
+        .demo-banner .btn-sm {
+            background: var(--primary-dark); color: white; padding: 3px 16px;
+            border-radius: 50px; font-size: 0.7rem; border: none; cursor: pointer; font-weight: 600;
+        }
+        .demo-banner .btn-sm:hover { background: var(--primary); }
+    </style>
+</head>
+<body class="theme-classic">
+
+    <!-- ============================================================
+    DEMO BANNER
+    ============================================================ -->
+    <div class="demo-banner">
+        <i class="fas fa-rocket"></i>
+        <span>🚀 DEMO · 20 Themes · Enterprise ERP for SMT A.K.R. Devi Memorial PU College</span>
+        <button class="btn-sm" onclick="showToast('📊 All features available!', 'success')">
+            <i class="fas fa-info-circle"></i> Explore
+        </button>
+    </div>
+
+    <!-- ============================================================
+    APP
+    ============================================================ -->
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="logo-icon">A</div>
+                <div class="brand-text">
+                    <h2>AKR<span>Devi</span></h2>
+                    <small>ERP · 20 Themes</small>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-label">Analytics</div>
+                <a class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard')"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a class="nav-item" data-page="analytics" onclick="switchPage('analytics')"><i class="fas fa-chart-line"></i> Analytics <span class="badge success">AI</span></a>
+
+                <div class="nav-label">Management</div>
+                <a class="nav-item" data-page="faculty" onclick="switchPage('faculty')"><i class="fas fa-chalkboard-teacher"></i> Faculty <span class="badge success" id="facultyBadge">12</span></a>
+                <a class="nav-item" data-page="students" onclick="switchPage('students')"><i class="fas fa-user-graduate"></i> Students <span class="badge success">28</span></a>
+                <a class="nav-item" data-page="admissions" onclick="switchPage('admissions')"><i class="fas fa-file-alt"></i> Admissions <span class="badge danger">8</span></a>
+
+                <div class="nav-label">Operations</div>
+                <a class="nav-item" data-page="attendance" onclick="switchPage('attendance')"><i class="fas fa-clipboard-check"></i> Attendance</a>
+                <a class="nav-item" data-page="leaves" onclick="switchPage('leaves')"><i class="fas fa-calendar-alt"></i> Leave Requests <span class="badge danger">5</span></a>
+                <a class="nav-item" data-page="salary" onclick="switchPage('salary')"><i class="fas fa-rupee-sign"></i> Payroll</a>
+
+                <div class="nav-label">Finance & Reports</div>
+                <a class="nav-item" data-page="fees" onclick="switchPage('fees')"><i class="fas fa-money-bill-wave"></i> Fee Management</a>
+                <a class="nav-item" data-page="examinations" onclick="switchPage('examinations')"><i class="fas fa-pencil-alt"></i> Examinations</a>
+                <a class="nav-item" data-page="reports" onclick="switchPage('reports')"><i class="fas fa-file-pdf"></i> Reports</a>
+
+                <div class="nav-label">System</div>
+                <a class="nav-item" data-page="settings" onclick="switchPage('settings')"><i class="fas fa-cog"></i> Settings</a>
+                <a class="nav-item" data-page="design-system" onclick="switchPage('design-system')"><i class="fas fa-palette"></i> UI/UX · 20 Themes</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">A</div>
+                    <div>
+                        <div class="user-name">Admin User</div>
+                        <div class="user-role">Super Administrator</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="showToast('👋 Demo mode', 'warning')">
+                    <i class="fas fa-sign-out-alt"></i> Demo Mode
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <!-- TOP HEADER -->
+            <header class="top-header">
+                <div class="left">
+                    <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+                    <div class="page-title">
+                        <h2>Dashboard <small>– enterprise overview</small></h2>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="global-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search modules..." id="globalSearch" oninput="globalSearch(this.value)" />
+                    </div>
+                    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                    <button class="notification" onclick="showToast('📬 8 new notifications', 'warning')">
+                        <i class="fas fa-bell"></i><span class="dot"></span>
+                    </button>
+                    <div class="admin-avatar" onclick="showToast('👤 Profile: Super Admin', 'success')">A</div>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+
+                <!-- ==========================================================
+                PAGE: DASHBOARD
+                ========================================================== -->
+                <div class="page active" id="page-dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-info"><h4>Total Students</h4><h2>1,284</h2><span class="trend up"><i class="fas fa-arrow-up"></i> 12.5%</span></div><div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Faculty</h4><h2>12</h2><span class="trend up"><i class="fas fa-arrow-up"></i> 8.3%</span></div><div class="stat-icon purple"><i class="fas fa-chalkboard-teacher"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Attendance</h4><h2>94%</h2><span class="trend up"><i class="fas fa-arrow-up"></i> 3.2%</span></div><div class="stat-icon green"><i class="fas fa-clipboard-check"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Pending Admissions</h4><h2>8</h2><span class="trend down"><i class="fas fa-arrow-down"></i> 12%</span></div><div class="stat-icon orange"><i class="fas fa-file-alt"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Revenue</h4><h2>₹ 24.6L</h2><span class="trend up"><i class="fas fa-arrow-up"></i> 15%</span></div><div class="stat-icon gold"><i class="fas fa-money-bill-wave"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>AI Insights</h4><h2 style="font-size:1rem;">3 alerts</h2><span class="trend up">View</span></div><div class="stat-icon red"><i class="fas fa-robot"></i></div></div>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="section-card">
+                            <div class="section-header"><h3><i class="fas fa-chart-bar"></i> Enrollment Trends</h3><span class="ai-badge"><i class="fas fa-robot"></i> AI</span></div>
+                            <div class="chart-container"><canvas id="enrollmentChart"></canvas></div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-header"><h3><i class="fas fa-clock"></i> Recent Activity</h3></div>
+                            <ul style="list-style:none;padding:0;">
+                                <li style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--card-border);"><span style="color:var(--accent);"><i class="fas fa-user-plus"></i></span><div><strong>Dr. A. Bhat</strong> joined</div><span style="margin-left:auto;color:var(--text-muted);font-size:0.75rem;">2h ago</span></li>
+                                <li style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--card-border);"><span style="color:var(--warning);"><i class="fas fa-calendar-check"></i></span><div><strong>Leave</strong> approved for Prof. U. Shekar</div><span style="margin-left:auto;color:var(--text-muted);font-size:0.75rem;">4h ago</span></li>
+                                <li style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--card-border);"><span style="color:var(--accent);"><i class="fas fa-money-bill-wave"></i></span><div><strong>Salary</strong> processed for 8 faculty</div><span style="margin-left:auto;color:var(--text-muted);font-size:0.75rem;">1d ago</span></li>
+                                <li style="display:flex;gap:12px;padding:10px 0;"><span style="color:var(--info);"><i class="fas fa-file-alt"></i></span><div><strong>New admission</strong> #1024</div><span style="margin-left:auto;color:var(--text-muted);font-size:0.75rem;">2d ago</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-robot"></i> AI Insights</h3><span class="ai-badge"><i class="fas fa-bolt"></i> Live</span></div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+                            <div style="background:var(--bg);padding:16px;border-radius:var(--radius-sm);border-left:4px solid var(--warning);"><h4 style="font-size:0.85rem;color:var(--text-muted);">⚠️ Attendance Alert</h4><p style="font-size:0.9rem;">3 faculty absent today</p></div>
+                            <div style="background:var(--bg);padding:16px;border-radius:var(--radius-sm);border-left:4px solid var(--accent);"><h4 style="font-size:0.85rem;color:var(--text-muted);">📈 Performance Trend</h4><p style="font-size:0.9rem;">Science stream +15%</p></div>
+                            <div style="background:var(--bg);padding:16px;border-radius:var(--radius-sm);border-left:4px solid var(--danger);"><h4 style="font-size:0.85rem;color:var(--text-muted);">💰 Fee Defaulter</h4><p style="font-size:0.9rem;">5 students pending</p></div>
+                            <div style="background:var(--bg);padding:16px;border-radius:var(--radius-sm);border-left:4px solid var(--info);"><h4 style="font-size:0.85rem;color:var(--text-muted);">🎯 Admission Target</h4><p style="font-size:0.9rem;">85% achieved</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================================
+                PAGE: FACULTY
+                ========================================================== -->
+                <div class="page" id="page-faculty">
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-info"><h4>Total</h4><h2 id="facTotal">12</h2></div><div class="stat-icon blue"><i class="fas fa-users"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Science</h4><h2 id="facScience">5</h2></div><div class="stat-icon purple"><i class="fas fa-flask"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Commerce</h4><h2 id="facCommerce">4</h2></div><div class="stat-icon orange"><i class="fas fa-chart-line"></i></div></div>
+                        <div class="stat-card"><div class="stat-info"><h4>Arts</h4><h2 id="facArts">3</h2></div><div class="stat-icon gold"><i class="fas fa-palette"></i></div></div>
+                    </div>
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-chalkboard-teacher"></i> Faculty</h3><div class="actions"><button class="btn btn-primary" onclick="openFacultyModal()"><i class="fas fa-plus"></i> Add</button><button class="btn btn-secondary" onclick="exportData('faculty')"><i class="fas fa-download"></i> Export</button></div></div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>#</th><th>Name</th><th>Stream</th><th>Subject</th><th>Qualification</th><th>Status</th><th>Action</th></tr></thead>
+                                <tbody id="facultyTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================================
+                PAGE: DESIGN SYSTEM (20 Themes)
+                ========================================================== -->
+                <div class="page" id="page-design-system">
+                    <div style="margin-bottom:28px;">
+                        <h2 style="font-size:1.6rem;font-weight:700;display:flex;align-items:center;gap:12px;">
+                            <i class="fas fa-palette" style="color:var(--secondary);"></i> 20 Themes · UI/UX Graphics
+                            <span style="font-size:0.8rem;background:var(--bg);color:var(--text-muted);padding:2px 14px;border-radius:50px;font-weight:400;">Complete</span>
+                        </h2>
+                        <p style="color:var(--text-muted);">Click any theme to instantly change the entire dashboard</p>
+                    </div>
+
+                    <!-- Theme Selector -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-paint-bucket"></i> 20 Color Themes</h3></div>
+                        <div class="theme-selector-grid" id="themeGrid">
+                            <div class="theme-card active-theme" data-theme="classic" onclick="applyTheme('classic')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#1a2a6c,#c9a24b);"></div>
+                                <div class="theme-name">Classic</div>
+                            </div>
+                            <div class="theme-card" data-theme="royal" onclick="applyTheme('royal')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#7a1f2d,#d4a84b);"></div>
+                                <div class="theme-name">Royal</div>
+                            </div>
+                            <div class="theme-card" data-theme="nature" onclick="applyTheme('nature')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#2d6a4f,#d4a373);"></div>
+                                <div class="theme-name">Nature</div>
+                            </div>
+                            <div class="theme-card" data-theme="dark" onclick="applyTheme('dark')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#8b5cf6,#fbbf24);"></div>
+                                <div class="theme-name">Dark</div>
+                            </div>
+                            <div class="theme-card" data-theme="mint" onclick="applyTheme('mint')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#0d9488,#f59e0b);"></div>
+                                <div class="theme-name">Mint</div>
+                            </div>
+                            <div class="theme-card" data-theme="coral" onclick="applyTheme('coral')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#e11d48,#fcd34d);"></div>
+                                <div class="theme-name">Coral</div>
+                            </div>
+                            <div class="theme-card" data-theme="azure" onclick="applyTheme('azure')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#0369a1,#f97316);"></div>
+                                <div class="theme-name">Azure</div>
+                            </div>
+                            <div class="theme-card" data-theme="lavender" onclick="applyTheme('lavender')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#6d28d9,#f472b6);"></div>
+                                <div class="theme-name">Lavender</div>
+                            </div>
+                            <div class="theme-card" data-theme="forest" onclick="applyTheme('forest')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#14532d,#f59e0b);"></div>
+                                <div class="theme-name">Forest</div>
+                            </div>
+                            <div class="theme-card" data-theme="rose" onclick="applyTheme('rose')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#9f1239,#fcd34d);"></div>
+                                <div class="theme-name">Rose</div>
+                            </div>
+                            <div class="theme-card" data-theme="ocean" onclick="applyTheme('ocean')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#0c4a6e,#fcd34d);"></div>
+                                <div class="theme-name">Ocean</div>
+                            </div>
+                            <div class="theme-card" data-theme="sunset" onclick="applyTheme('sunset')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#9d174d,#f97316);"></div>
+                                <div class="theme-name">Sunset</div>
+                            </div>
+                            <div class="theme-card" data-theme="midnight" onclick="applyTheme('midnight')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#0a1628,#4fc3f7);"></div>
+                                <div class="theme-name">Midnight</div>
+                            </div>
+                            <div class="theme-card" data-theme="blush" onclick="applyTheme('blush')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#e8b4b8,#c9a24b);"></div>
+                                <div class="theme-name">Blush</div>
+                            </div>
+                            <div class="theme-card" data-theme="sage" onclick="applyTheme('sage')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#4a7c59,#d4a373);"></div>
+                                <div class="theme-name">Sage</div>
+                            </div>
+                            <div class="theme-card" data-theme="tropical" onclick="applyTheme('tropical')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#00695c,#ff6f00);"></div>
+                                <div class="theme-name">Tropical</div>
+                            </div>
+                            <div class="theme-card" data-theme="indigo" onclick="applyTheme('indigo')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#283593,#ffab00);"></div>
+                                <div class="theme-name">Indigo</div>
+                            </div>
+                            <div class="theme-card" data-theme="plum" onclick="applyTheme('plum')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#4a148c,#fdd835);"></div>
+                                <div class="theme-name">Plum</div>
+                            </div>
+                            <div class="theme-card" data-theme="slate" onclick="applyTheme('slate')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#37474f,#90a4ae);"></div>
+                                <div class="theme-name">Slate</div>
+                            </div>
+                            <div class="theme-card" data-theme="cherry" onclick="applyTheme('cherry')">
+                                <div class="theme-preview" style="background:linear-gradient(135deg,#c62828,#ffd54f);"></div>
+                                <div class="theme-name">Cherry</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logos -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-trademark"></i> Branding</h3></div>
+                        <div class="logo-preview">
+                            <div class="logo-item"><div class="logo-display">AKR<span>Devi</span></div><div class="label">Light</div></div>
+                            <div class="logo-item"><div class="logo-display dark">AKR<span>Devi</span></div><div class="label">Dark</div></div>
+                            <div class="logo-item"><div class="logo-display" style="font-size:2rem;">A<span style="color:var(--secondary);">D</span></div><div class="label">Monogram</div></div>
+                            <div class="logo-item"><div style="background:var(--secondary);width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:800;color:var(--primary-dark);margin:0 auto;">A</div><div class="label">Icon</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Colors -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-palette"></i> Color Palette</h3></div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;">
+                            <div class="color-swatch"><div class="swatch" style="background:var(--primary);"></div><div class="info"><div class="name">Primary</div><div class="hex">var(--primary)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--primary-light);"></div><div class="info"><div class="name">P. Light</div><div class="hex">var(--primary-light)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--primary-dark);"></div><div class="info"><div class="name">P. Dark</div><div class="hex">var(--primary-dark)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--secondary);"></div><div class="info"><div class="name">Secondary</div><div class="hex">var(--secondary)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--secondary-light);"></div><div class="info"><div class="name">S. Light</div><div class="hex">var(--secondary-light)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--accent);"></div><div class="info"><div class="name">Accent</div><div class="hex">var(--accent)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--danger);"></div><div class="info"><div class="name">Danger</div><div class="hex">var(--danger)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--warning);"></div><div class="info"><div class="name">Warning</div><div class="hex">var(--warning)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--info);"></div><div class="info"><div class="name">Info</div><div class="hex">var(--info)</div></div></div>
+                            <div class="color-swatch"><div class="swatch" style="background:var(--bg);"></div><div class="info"><div class="name">BG</div><div class="hex">var(--bg)</div></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Typography -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-font"></i> Typography</h3></div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
+                            <div class="type-sample"><div class="sample" style="font-size:2rem;">Heading 1</div><div class="meta">Playfair Display · 40px</div></div>
+                            <div class="type-sample"><div class="sample" style="font-size:1.6rem;">Heading 2</div><div class="meta">Playfair Display · 32px</div></div>
+                            <div class="type-sample"><div class="sample inter" style="font-size:1.2rem;font-weight:600;">Body Bold</div><div class="meta">Inter · 18px</div></div>
+                            <div class="type-sample"><div class="sample inter" style="font-size:1rem;font-weight:400;">Body Regular</div><div class="meta">Inter · 16px</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Icons -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-icons"></i> Icons (50+)</h3></div>
+                        <div class="icon-grid">
+                            <div class="icon-item"><i class="fas fa-th-large"></i><span class="icon-name">Dashboard</span></div>
+                            <div class="icon-item"><i class="fas fa-chalkboard-teacher"></i><span class="icon-name">Faculty</span></div>
+                            <div class="icon-item"><i class="fas fa-user-graduate"></i><span class="icon-name">Students</span></div>
+                            <div class="icon-item"><i class="fas fa-file-alt"></i><span class="icon-name">Admissions</span></div>
+                            <div class="icon-item"><i class="fas fa-clipboard-check"></i><span class="icon-name">Attendance</span></div>
+                            <div class="icon-item"><i class="fas fa-calendar-alt"></i><span class="icon-name">Leaves</span></div>
+                            <div class="icon-item"><i class="fas fa-rupee-sign"></i><span class="icon-name">Payroll</span></div>
+                            <div class="icon-item"><i class="fas fa-money-bill-wave"></i><span class="icon-name">Fees</span></div>
+                            <div class="icon-item"><i class="fas fa-pencil-alt"></i><span class="icon-name">Exams</span></div>
+                            <div class="icon-item"><i class="fas fa-file-pdf"></i><span class="icon-name">Reports</span></div>
+                            <div class="icon-item"><i class="fas fa-cog"></i><span class="icon-name">Settings</span></div>
+                            <div class="icon-item"><i class="fas fa-bell"></i><span class="icon-name">Notifications</span></div>
+                            <div class="icon-item"><i class="fas fa-robot"></i><span class="icon-name">AI</span></div>
+                            <div class="icon-item"><i class="fas fa-chart-line"></i><span class="icon-name">Analytics</span></div>
+                            <div class="icon-item"><i class="fas fa-users"></i><span class="icon-name">Users</span></div>
+                            <div class="icon-item"><i class="fas fa-book"></i><span class="icon-name">Courses</span></div>
+                            <div class="icon-item"><i class="fas fa-envelope"></i><span class="icon-name">Messages</span></div>
+                            <div class="icon-item"><i class="fas fa-search"></i><span class="icon-name">Search</span></div>
+                            <div class="icon-item"><i class="fas fa-print"></i><span class="icon-name">Print</span></div>
+                            <div class="icon-item"><i class="fas fa-download"></i><span class="icon-name">Export</span></div>
+                            <div class="icon-item"><i class="fas fa-upload"></i><span class="icon-name">Upload</span></div>
+                            <div class="icon-item"><i class="fas fa-edit"></i><span class="icon-name">Edit</span></div>
+                            <div class="icon-item"><i class="fas fa-trash"></i><span class="icon-name">Delete</span></div>
+                            <div class="icon-item"><i class="fas fa-eye"></i><span class="icon-name">View</span></div>
+                            <div class="icon-item"><i class="fas fa-check-circle"></i><span class="icon-name">Approved</span></div>
+                            <div class="icon-item"><i class="fas fa-times-circle"></i><span class="icon-name">Rejected</span></div>
+                            <div class="icon-item"><i class="fas fa-clock"></i><span class="icon-name">Pending</span></div>
+                            <div class="icon-item"><i class="fas fa-graduation-cap"></i><span class="icon-name">Graduation</span></div>
+                            <div class="icon-item"><i class="fas fa-building"></i><span class="icon-name">Campus</span></div>
+                            <div class="icon-item"><i class="fas fa-globe"></i><span class="icon-name">Global</span></div>
+                            <div class="icon-item"><i class="fas fa-lock"></i><span class="icon-name">Security</span></div>
+                            <div class="icon-item"><i class="fas fa-unlock"></i><span class="icon-name">Access</span></div>
+                            <div class="icon-item"><i class="fas fa-shield-alt"></i><span class="icon-name">Shield</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Illustrations -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-paint-brush"></i> Illustrations (20+)</h3></div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;">
+                            <div class="illustration">📊<span class="label">Dashboard</span></div>
+                            <div class="illustration">🎓<span class="label">Education</span></div>
+                            <div class="illustration">🤖<span class="label">AI</span></div>
+                            <div class="illustration">💼<span class="label">HR</span></div>
+                            <div class="illustration">📈<span class="label">Analytics</span></div>
+                            <div class="illustration">🏛️<span class="label">College</span></div>
+                            <div class="illustration">👨‍🏫<span class="label">Teaching</span></div>
+                            <div class="illustration">🧑‍🎓<span class="label">Student</span></div>
+                            <div class="illustration">📚<span class="label">Library</span></div>
+                            <div class="illustration">💰<span class="label">Finance</span></div>
+                            <div class="illustration">📝<span class="label">Exam</span></div>
+                            <div class="illustration">📋<span class="label">Reports</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Glassmorphism -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-glass-whiskey"></i> Glassmorphism</h3></div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;">
+                            <div class="glass-preview" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);">
+                                <i class="fas fa-user" style="font-size:2rem;color:var(--secondary);"></i>
+                                <h3 style="margin:6px 0 2px;">Glass Card</h3>
+                                <p style="font-size:0.8rem;color:var(--text-muted);">Frosted glass effect</p>
+                                <button class="btn-demo btn-demo-glass" style="margin-top:8px;">Glass</button>
+                            </div>
+                            <div class="glass-preview" style="background:var(--card-bg);">
+                                <i class="fas fa-file-alt" style="font-size:2rem;color:var(--primary);"></i>
+                                <h3 style="margin:6px 0 2px;">Stat Card</h3>
+                                <p style="font-size:0.8rem;color:var(--text-muted);">1,284 students</p>
+                                <span style="color:var(--accent);font-weight:600;">↑ 12.5%</span>
+                            </div>
+                            <div class="glass-preview" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;">
+                                <i class="fas fa-graduation-cap" style="font-size:2rem;opacity:0.8;"></i>
+                                <h3 style="margin:6px 0 2px;">Gradient</h3>
+                                <p style="font-size:0.8rem;opacity:0.8;">Premium design</p>
+                                <button class="btn-demo btn-demo-glass" style="margin-top:8px;">Start</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-square"></i> Button Variants</h3></div>
+                        <div class="btn-group">
+                            <button class="btn-demo btn-demo-primary"><i class="fas fa-check"></i> Primary</button>
+                            <button class="btn-demo btn-demo-secondary"><i class="fas fa-star"></i> Secondary</button>
+                            <button class="btn-demo btn-demo-success"><i class="fas fa-check-circle"></i> Success</button>
+                            <button class="btn-demo btn-demo-danger"><i class="fas fa-times-circle"></i> Danger</button>
+                            <button class="btn-demo btn-demo-outline">Outline</button>
+                            <button class="btn-demo btn-demo-glass" style="background:var(--primary-dark);">Glass</button>
+                        </div>
+                    </div>
+
+                    <!-- Gradients -->
+                    <div class="section-card">
+                        <div class="section-header"><h3><i class="fas fa-fill-drip"></i> Gradients</h3></div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;">
+                            <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius-sm);padding:18px;color:white;text-align:center;"><h4>Primary</h4></div>
+                            <div style="background:linear-gradient(135deg,var(--secondary),var(--secondary-light));border-radius:var(--radius-sm);padding:18px;color:var(--primary-dark);text-align:center;"><h4>Secondary</h4></div>
+                            <div style="background:linear-gradient(135deg,var(--accent),#34d399);border-radius:var(--radius-sm);padding:18px;color:white;text-align:center;"><h4>Accent</h4></div>
+                            <div style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);border-radius:var(--radius-sm);padding:18px;color:white;text-align:center;"><h4>AI</h4></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================================
+                OTHER PAGES (Placeholders)
+                ========================================================== -->
+                <div class="page" id="page-analytics"><div class="section-card"><div class="section-header"><h3><i class="fas fa-chart-line"></i> Analytics</h3></div><p style="color:var(--text-muted);">AI-powered insights dashboard.</p></div></div>
+                <div class="page" id="page-students"><div class="section-card"><div class="section-header"><h3><i class="fas fa-user-graduate"></i> Students</h3></div><p style="color:var(--text-muted);">Full student management.</p><button class="btn btn-primary" onclick="showToast('Students loaded!','success')">Load</button></div></div>
+                <div class="page" id="page-admissions"><div class="section-card"><div class="section-header"><h3><i class="fas fa-file-alt"></i> Admissions</h3></div><p style="color:var(--text-muted);">Manage applications.</p><button class="btn btn-primary" onclick="showToast('Admissions loaded!','success')">Load</button></div></div>
+                <div class="page" id="page-attendance"><div class="section-card"><div class="section-header"><h3><i class="fas fa-clipboard-check"></i> Attendance</h3></div><p style="color:var(--text-muted);">Track attendance.</p></div></div>
+                <div class="page" id="page-leaves"><div class="section-card"><div class="section-header"><h3><i class="fas fa-calendar-alt"></i> Leaves</h3></div><p style="color:var(--text-muted);">Manage leave requests.</p></div></div>
+                <div class="page" id="page-salary"><div class="section-card"><div class="section-header"><h3><i class="fas fa-rupee-sign"></i> Payroll</h3></div><p style="color:var(--text-muted);">Salary management.</p></div></div>
+                <div class="page" id="page-fees"><div class="section-card"><div class="section-header"><h3><i class="fas fa-money-bill-wave"></i> Fees</h3></div><p style="color:var(--text-muted);">Fee collection.</p></div></div>
+                <div class="page" id="page-examinations"><div class="section-card"><div class="section-header"><h3><i class="fas fa-pencil-alt"></i> Exams</h3></div><p style="color:var(--text-muted);">Schedule & results.</p></div></div>
+                <div class="page" id="page-reports"><div class="section-card"><div class="section-header"><h3><i class="fas fa-file-pdf"></i> Reports</h3></div><p style="color:var(--text-muted);">PDF/Excel reports.</p></div></div>
+                <div class="page" id="page-settings"><div class="section-card"><div class="section-header"><h3><i class="fas fa-cog"></i> Settings</h3></div><p style="color:var(--text-muted);">Configure system.</p></div></div>
+
+            </div><!-- /page-content -->
+
+            <!-- FOOTER -->
+            <div style="padding:14px 32px;text-align:center;color:var(--text-muted);font-size:0.75rem;border-top:1px solid var(--card-border);background:var(--card-bg);backdrop-filter:var(--blur);">
+                &copy; 2026 SMT A.K.R. Devi Memorial PU College &bull; <strong style="color:var(--secondary);">20 Themes</strong> &bull; <span style="color:var(--primary);"><i class="fas fa-palette"></i> UI/UX Complete</span>
+            </div>
+
+        </div><!-- /main-content -->
+    </div><!-- /app -->
+
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Success!</span></div>
+
+    <!-- ============================================================
+    MODAL: FACULTY
+    ============================================================ -->
+    <div class="modal-overlay" id="facultyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus"></i> <span id="facultyModalTitle">Add Faculty</span></h3>
+                <button class="modal-close" onclick="closeModal('facultyModal')">&times;</button>
+            </div>
+            <form id="facultyForm" onsubmit="saveFaculty(event)">
+                <input type="hidden" id="facultyId" />
+                <div class="form-row">
+                    <div class="form-group"><label>Full Name <span class="required">*</span></label><input type="text" id="facName" placeholder="Dr. Suresh Kumar" required /></div>
+                    <div class="form-group"><label>Stream <span class="required">*</span></label><select id="facStream" required><option value="">Select</option><option value="science">Science</option><option value="commerce">Commerce</option><option value="arts">Arts</option></select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Subject <span class="required">*</span></label><input type="text" id="facSubject" placeholder="Physics" required /></div>
+                    <div class="form-group"><label>Qualification <span class="required">*</span></label><input type="text" id="facQualification" placeholder="Ph.D." required /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Experience</label><input type="number" id="facExperience" min="0" /></div>
+                    <div class="form-group"><label>Status <span class="required">*</span></label><select id="facStatus" required><option value="active">Active</option><option value="inactive">Inactive</option><option value="on-leave">On Leave</option></select></div>
+                </div>
+                <div class="form-group"><label>Email</label><input type="email" id="facEmail" placeholder="faculty@akrdevi.edu.in" /></div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('facultyModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // DATA STORE
+        // ============================================================
+        let facultyData = [
+            { id: 1, name: 'Dr. P. Sharma', stream: 'science', subject: 'Physics', qualification: 'Ph.D. Physics',
+                experience: 18, status: 'active', email: 'psharma@akrdevi.edu.in' },
+            { id: 2, name: 'Prof. S. Nair', stream: 'science', subject: 'Chemistry', qualification: 'M.Sc. Chemistry',
+                experience: 12, status: 'active', email: 'snair@akrdevi.edu.in' },
+            { id: 3, name: 'Dr. R. Verma', stream: 'commerce', subject: 'Accountancy', qualification: 'Ph.D. Commerce',
+                experience: 15, status: 'active', email: 'rverma@akrdevi.edu.in' },
+            { id: 4, name: 'Prof. M. Iyer', stream: 'commerce', subject: 'Economics', qualification: 'M.Com, NET',
+                experience: 10, status: 'active', email: 'miyer@akrdevi.edu.in' },
+            { id: 5, name: 'Dr. K. Rao', stream: 'science', subject: 'Mathematics', qualification: 'Ph.D. Mathematics',
+                experience: 20, status: 'on-leave', email: 'krao@akrdevi.edu.in' },
+            { id: 6, name: 'Prof. A. Menon', stream: 'arts', subject: 'History', qualification: 'M.A. History',
+                experience: 8, status: 'active', email: 'amenon@akrdevi.edu.in' },
+            { id: 7, name: 'Dr. S. Kumar', stream: 'science', subject: 'Biology', qualification: 'Ph.D. Botany',
+                experience: 14, status: 'active', email: 'skumar@akrdevi.edu.in' },
+            { id: 8, name: 'Prof. L. Nair', stream: 'commerce', subject: 'Business Studies', qualification: 'M.Com, MBA',
+                experience: 9, status: 'inactive', email: 'lnair@akrdevi.edu.in' },
+            { id: 9, name: 'Dr. R. Shetty', stream: 'arts', subject: 'Political Science',
+                qualification: 'Ph.D. Political Science', experience: 11, status: 'active',
+                email: 'rshetty@akrdevi.edu.in' },
+            { id: 10, name: 'Prof. G. Hegde', stream: 'arts', subject: 'Kannada', qualification: 'M.A. Kannada',
+                experience: 7, status: 'active', email: 'ghegde@akrdevi.edu.in' },
+            { id: 11, name: 'Dr. A. Bhat', stream: 'science', subject: 'Computer Science', qualification: 'Ph.D. CS',
+                experience: 6, status: 'active', email: 'abhat@akrdevi.edu.in' },
+            { id: 12, name: 'Prof. U. Shekar', stream: 'commerce', subject: 'Statistics', qualification: 'M.Sc. Statistics',
+                experience: 5, status: 'on-leave', email: 'ushekar@akrdevi.edu.in' }
+        ];
+        let nextFacultyId = 13;
+
+        // ============================================================
+        // RENDER FACULTY
+        // ============================================================
+        function renderFaculty() {
+            const tbody = document.getElementById('facultyTableBody');
+            if (!facultyData || facultyData.length === 0) {
+                tbody.innerHTML =
+                    `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-muted);">No faculty found</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = facultyData.map(f => {
+                const streamLabel = f.stream.charAt(0).toUpperCase() + f.stream.slice(1);
+                const statusMap = { 'active': 'Active', 'inactive': 'Inactive', 'on-leave': 'On Leave' };
+                return `
+                        <tr>
+                            <td><strong>#${String(f.id).padStart(3,'0')}</strong></td>
+                            <td><span class="avatar-sm">${f.name.charAt(0).toUpperCase()}</span> ${f.name}</td>
+                            <td><span class="stream-badge ${f.stream}">${streamLabel}</span></td>
+                            <td>${f.subject || '—'}</td>
+                            <td>${f.qualification || '—'}</td>
+                            <td><span class="status ${f.status}">${statusMap[f.status] || 'Active'}</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="view-btn" onclick="viewFaculty(${f.id})"><i class="fas fa-eye"></i></button>
+                                    <button class="edit-btn" onclick="editFaculty(${f.id})"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn" onclick="deleteFaculty(${f.id})"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+            }).join('');
+            updateFacultyStats();
+        }
+
+        function updateFacultyStats() {
+            const total = facultyData.length;
+            const science = facultyData.filter(f => f.stream === 'science').length;
+            const commerce = facultyData.filter(f => f.stream === 'commerce').length;
+            const arts = facultyData.filter(f => f.stream === 'arts').length;
+            document.getElementById('facTotal').textContent = total;
+            document.getElementById('facScience').textContent = science;
+            document.getElementById('facCommerce').textContent = commerce;
+            document.getElementById('facArts').textContent = arts;
+            document.getElementById('facultyBadge').textContent = total;
+        }
+
+        // ============================================================
+        // FACULTY CRUD
+        // ============================================================
+        function openFacultyModal() {
+            document.getElementById('facultyModalTitle').textContent = 'Add Faculty';
+            document.getElementById('facultyForm').reset();
+            document.getElementById('facultyId').value = '';
+            document.getElementById('facultyModal').classList.add('active');
+        }
+
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function editFaculty(id) {
+            const f = facultyData.find(x => x.id === id);
+            if (!f) return;
+            document.getElementById('facultyModalTitle').textContent = 'Edit Faculty';
+            document.getElementById('facultyId').value = f.id;
+            document.getElementById('facName').value = f.name;
+            document.getElementById('facStream').value = f.stream;
+            document.getElementById('facSubject').value = f.subject || '';
+            document.getElementById('facQualification').value = f.qualification || '';
+            document.getElementById('facExperience').value = f.experience || '';
+            document.getElementById('facStatus').value = f.status || 'active';
+            document.getElementById('facEmail').value = f.email || '';
+            document.getElementById('facultyModal').classList.add('active');
+        }
+
+        function viewFaculty(id) {
+            const f = facultyData.find(x => x.id === id);
+            if (!f) return;
+            const statusMap = { 'active': 'Active', 'inactive': 'Inactive', 'on-leave': 'On Leave' };
+            const streamMap = { 'science': 'Science', 'commerce': 'Commerce', 'arts': 'Arts' };
+            showToast(
+                `👁️ <strong>${f.name}</strong><br>Stream: ${streamMap[f.stream]}<br>Subject: ${f.subject}<br>Qualification: ${f.qualification}<br>Experience: ${f.experience || 0} yrs<br>Status: ${statusMap[f.status]}`,
+                'success');
+        }
+
+        function deleteFaculty(id) {
+            if (!confirm('Delete this faculty member?')) return;
+            facultyData = facultyData.filter(f => f.id !== id);
+            renderFaculty();
+            showToast('🗑️ Faculty deleted', 'error');
+        }
+
+        function saveFaculty(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById('facultyId').value);
+            const name = document.getElementById('facName').value.trim();
+            const stream = document.getElementById('facStream').value;
+            const subject = document.getElementById('facSubject').value.trim();
+            const qualification = document.getElementById('facQualification').value.trim();
+            const experience = parseInt(document.getElementById('facExperience').value) || 0;
+            const status = document.getElementById('facStatus').value;
+            const email = document.getElementById('facEmail').value.trim();
+
+            if (!name || !stream || !subject || !qualification) {
+                showToast('Please fill all required fields.', 'error');
+                return;
+            }
+
+            if (id) {
+                const idx = facultyData.findIndex(f => f.id === id);
+                if (idx > -1) {
+                    facultyData[idx] = { ...facultyData[idx], name, stream, subject, qualification, experience, status,
+                        email };
+                    showToast('✅ Faculty updated!', 'success');
+                }
+            } else {
+                facultyData.push({ id: nextFacultyId++, name, stream, subject, qualification, experience, status, email });
+                showToast('✅ Faculty added!', 'success');
+            }
+            closeModal('facultyModal');
+            renderFaculty();
+        }
+
+        // ============================================================
+        // PAGE SWITCHER
+        // ============================================================
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === pageId) item.classList.add('active');
+            });
+
+            const titles = {
+                dashboard: 'Dashboard <small>– overview</small>',
+                analytics: 'Analytics <small>– AI insights</small>',
+                faculty: 'Faculty <small>– teaching staff</small>',
+                students: 'Students <small>– records</small>',
+                admissions: 'Admissions <small>– applications</small>',
+                attendance: 'Attendance <small>– tracking</small>',
+                leaves: 'Leave Requests <small>– management</small>',
+                salary: 'Payroll <small>– salary</small>',
+                fees: 'Fee Management <small>– collections</small>',
+                examinations: 'Examinations <small>– academic</small>',
+                reports: 'Reports <small>– analytics</small>',
+                settings: 'Settings <small>– configuration</small>',
+                'design-system': 'UI/UX · 20 Themes <small>– design system</small>'
+            };
+            const titleEl = document.querySelector('.top-header .left .page-title h2');
+            const smallEl = document.querySelector('.top-header .left .page-title small');
+            if (titleEl && titles[pageId]) {
+                const parts = titles[pageId].split(' <small>');
+                titleEl.textContent = parts[0];
+                if (smallEl) smallEl.textContent = '– ' + parts[1].replace('</small>', '').replace('– ', '');
+            }
+
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('active');
+            }
+        }
+
+        // ============================================================
+        // THEME APPLICATION
+        // ============================================================
+        function applyTheme(themeName) {
+            // Remove all theme classes
+            document.body.className = document.body.className.split(' ')
+                .filter(c => !c.startsWith('theme-')).join(' ');
+            // Add the selected theme
+            document.body.classList.add('theme-' + themeName);
+            // Update active theme card
+            document.querySelectorAll('.theme-card').forEach(card => {
+                card.classList.toggle('active-theme', card.dataset.theme === themeName);
+            });
+            // Store in localStorage
+            localStorage.setItem('akrdevi-theme', themeName);
+            showToast(`🎨 Theme: ${themeName.charAt(0).toUpperCase() + themeName.slice(1)}`, 'success');
+            if (enrollmentChart) { enrollmentChart.destroy();
+                initCharts(); }
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toastMsg');
+            toast.className = 'toast ' + type;
+            msg.innerHTML = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ============================================================
+        // CHARTS
+        // ============================================================
+        let enrollmentChart = null;
+
+        function initCharts() {
+            const ctx = document.getElementById('enrollmentChart');
+            if (!ctx) return;
+            if (enrollmentChart) enrollmentChart.destroy();
+
+            const isDark = document.body.classList.contains('theme-dark') ||
+                document.body.classList.contains('theme-midnight');
+            const textColor = isDark ? '#b8b8d0' : '#4a4a6a';
+            const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+
+            enrollmentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Science',
+                        data: [120, 140, 160, 155, 180, 200, 215],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52,152,219,0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Commerce',
+                        data: [100, 115, 130, 140, 155, 170, 185],
+                        borderColor: '#f39c12',
+                        backgroundColor: 'rgba(243,156,18,0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Arts',
+                        data: [60, 70, 80, 75, 85, 90, 98],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139,92,246,0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: textColor } } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } },
+                        x: { grid: { display: false }, ticks: { color: textColor } }
+                    }
+                }
+            });
+        }
+
+        // ============================================================
+        // SIDEBAR & THEME TOGGLE
+        // ============================================================
+        document.getElementById('hamburgerBtn').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        });
+        document.getElementById('sidebarOverlay').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('open');
+            this.classList.remove('active');
+        });
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('active');
+            }
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('akrdevi-theme') || 'classic';
+        applyTheme(savedTheme);
+
+        themeToggle.addEventListener('click', function() {
+            const current = document.body.className.split(' ').find(c => c.startsWith('theme-'));
+            if (current && current.includes('dark')) {
+                applyTheme('classic');
+            } else {
+                applyTheme('dark');
+            }
+        });
+
+        // ============================================================
+        // GLOBAL SEARCH
+        // ============================================================
+        function globalSearch(query) {
+            if (!query || query.length < 2) return;
+            const pages = ['dashboard', 'analytics', 'faculty', 'students', 'admissions', 'attendance', 'leaves', 'salary',
+                'fees', 'examinations', 'reports', 'settings', 'design-system'
+            ];
+            const matches = pages.filter(p => p.includes(query.toLowerCase()));
+            if (matches.length > 0) {
+                showToast(`🔍 Found ${matches.length} modules`, 'success');
+            }
+        }
+
+        // ============================================================
+        // EXPORT
+        // ============================================================
+        function exportData(type) {
+            showToast(`📥 ${type.charAt(0).toUpperCase()+type.slice(1)} exported!`, 'success');
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFaculty();
+            initCharts();
+            console.log('🏛️ AKRDevi ERP with 20 Themes loaded!');
+            console.log('🎨 Click a theme in "UI/UX · 20 Themes" to change instantly.');
+        });
+    </script>
+
+</body>
+</html>
